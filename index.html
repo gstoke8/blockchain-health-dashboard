@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Node Operations Center</title>
+  <style>
+    :root {
+      --bg:        #0b0e14;
+      --surface:   #131720;
+      --surface-2: #1a2030;
+      --surface-3: #1e2638;
+      --border:    #2a3347;
+      --border-2:  #354060;
+      --text:      #e2e8f0;
+      --text-muted:#8896b3;
+      --text-dim:  #5a6a85;
+
+      --green:  #22c55e;
+      --green-bg: rgba(34,197,94,0.08);
+      --green-border: rgba(34,197,94,0.3);
+
+      --yellow: #eab308;
+      --yellow-bg: rgba(234,179,8,0.08);
+      --yellow-border: rgba(234,179,8,0.3);
+
+      --red:    #ef4444;
+      --red-bg: rgba(239,68,68,0.08);
+      --red-border: rgba(239,68,68,0.3);
+
+      --blue:   #3b82f6;
+      --purple: #8b5cf6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 13px;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+
+    .logo-mark {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 800; color: #fff;
+    }
+
+    .bank-name {
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 400;
+      margin-left: 4px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .refresh-time {
+      color: var(--text-dim);
+      font-size: 11px;
+    }
+
+    .btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 5px 11px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex; align-items: center; gap: 5px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .btn:hover { background: var(--surface-3); border-color: var(--border-2); }
+
+    /* ── Alert Banner ── */
+    .alert-banner {
+      display: none;
+      padding: 8px 24px;
+      font-size: 12px;
+      font-weight: 500;
+      gap: 8px;
+      align-items: center;
+    }
+    .alert-banner.show { display: flex; }
+    .alert-banner.red    { background: var(--red-bg);    border-bottom: 1px solid var(--red-border);    color: #fca5a5; }
+    .alert-banner.yellow { background: var(--yellow-bg); border-bottom: 1px solid var(--yellow-border); color: #fde68a; }
+
+    /* ── Summary Bar ── */
+    .summary-bar {
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat-pill {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .stat-pill .num { font-weight: 700; font-size: 14px; }
+    .stat-pill .label { color: var(--text-muted); }
+
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-green  { background: var(--green);  box-shadow: 0 0 5px var(--green); }
+    .dot-yellow { background: var(--yellow); box-shadow: 0 0 5px var(--yellow); }
+    .dot-red    { background: var(--red);    box-shadow: 0 0 5px var(--red); animation: pulse 1.4s infinite; }
+
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 4px var(--red); }
+      50%      { box-shadow: 0 0 10px var(--red); }
+    }
+
+    /* ── Grid ── */
+    .grid {
+      padding: 20px 24px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── Chain Card ── */
+    .chain-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .chain-card.border-red    { border-color: var(--red-border); }
+    .chain-card.border-yellow { border-color: var(--yellow-border); }
+
+    /* Card Header */
+    .card-header {
+      padding: 14px 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chain-id {
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .chain-icon {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; font-weight: 700; flex-shrink: 0;
+    }
+
+    .chain-name { font-size: 14px; font-weight: 700; }
+    .chain-sub  { color: var(--text-muted); font-size: 11px; margin-top: 1px; }
+
+    .node-badge {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      border: 1px solid transparent;
+    }
+    .node-badge.green  { background: var(--green-bg);  border-color: var(--green-border);  color: var(--green); }
+    .node-badge.yellow { background: var(--yellow-bg); border-color: var(--yellow-border); color: var(--yellow); }
+    .node-badge.red    { background: var(--red-bg);    border-color: var(--red-border);    color: var(--red); }
+
+    /* Sections */
+    .card-sections {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .section {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section.full { grid-column: 1 / -1; }
+
+    .section:nth-child(odd):not(.full) {
+      border-right: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    /* Node Health Section */
+    .node-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .metric {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 9px;
+    }
+
+    .metric-label { color: var(--text-dim); font-size: 10px; margin-bottom: 2px; }
+    .metric-value { font-weight: 700; font-size: 13px; }
+    .metric-value.ok     { color: var(--green); }
+    .metric-value.warn   { color: var(--yellow); }
+    .metric-value.error  { color: var(--red); }
+    .metric-value.normal { color: var(--text); }
+
+    /* Network Health */
+    .network-status {
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .net-indicator {
+      width: 9px; height: 9px; border-radius: 50%;
+    }
+
+    .net-label { font-weight: 600; font-size: 13px; }
+    .net-detail { color: var(--text-muted); font-size: 11px; margin-top: 2px; }
+
+    /* Centralization */
+    .decentral-score {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 7px;
+    }
+
+    .decentral-label { font-weight: 600; font-size: 13px; }
+    .risk-badge {
+      font-size: 10px; font-weight: 700;
+      padding: 2px 7px; border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .risk-low    { background: var(--green-bg);  color: var(--green); }
+    .risk-medium { background: var(--yellow-bg); color: var(--yellow); }
+    .risk-high   { background: var(--red-bg);    color: var(--red); }
+
+    .validator-bars { display: flex; flex-direction: column; gap: 4px; }
+
+    .val-row {
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .val-name { width: 90px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-muted); font-size: 11px; }
+    .val-bar-wrap { flex: 1; height: 5px; background: var(--surface-3); border-radius: 3px; overflow: hidden; }
+    .val-bar { height: 100%; border-radius: 3px; background: var(--blue); }
+    .val-pct { width: 34px; text-align: right; font-size: 11px; color: var(--text-muted); }
+
+    /* TPS + Fee Section */
+    .big-stat { margin-bottom: 3px; }
+    .big-num { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+    .big-unit { font-size: 11px; color: var(--text-muted); margin-left: 3px; }
+
+    .fee-row {
+      display: flex; flex-direction: column; gap: 2px;
+    }
+
+    .fee-native { font-size: 13px; font-weight: 700; }
+    .fee-usd    { font-size: 11px; color: var(--text-muted); }
+
+    /* Footer */
+    .card-footer {
+      padding: 8px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--text-dim);
+      font-size: 11px;
+      background: var(--surface-2);
+    }
+
+    .uptime-bar-wrap {
+      display: flex; align-items: center; gap: 6px;
+    }
+    .uptime-strip {
+      display: flex; gap: 2px;
+    }
+    .uptime-seg {
+      width: 5px; height: 12px; border-radius: 2px;
+    }
+
+    /* Icons */
+    .icon-btc  { background: rgba(247,147,26,0.12);  color: #f7931a; }
+    .icon-eth  { background: rgba(98,126,234,0.12);  color: #627eea; }
+    .icon-sol  { background: rgba(153,69,255,0.12);  color: #9945ff; }
+    .icon-bnb  { background: rgba(240,185,11,0.12);  color: #f0b90b; }
+    .icon-tron { background: rgba(239,68,68,0.12);   color: #ef4444; }
+
+    /* Spinner */
+    .spin { animation: spin 0.8s linear infinite; display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Tooltip */
+    [title] { cursor: default; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">⬡</div>
+    Node Operations Center
+    <span class="bank-name">— First National Digital Bank</span>
+  </div>
+  <div class="header-right">
+    <span class="refresh-time" id="refreshLabel">Updated just now</span>
+    <button class="btn" onclick="runCheck()">
+      <span id="refreshIcon">↻</span> Refresh All
+    </button>
+  </div>
+</header>
+
+<div class="alert-banner" id="alertBanner"></div>
+
+<div class="summary-bar" id="summaryBar"></div>
+<div class="grid" id="grid"></div>
+
+<script>
+// ─── Chain Config ─────────────────────────────────────────────────────────────
+const CHAINS = [
+  {
+    id: 'btc',
+    name: 'Bitcoin',
+    ticker: 'BTC',
+    icon: '₿',
+    iconClass: 'icon-btc',
+    nodeId: 'FNDB-BTC-NODE-01',
+    tpsRange: [3, 7],
+    feeRange: { min: 2.1, max: 8.4, native: 'sats/vB', nativeVal: () => (Math.random()*30+10).toFixed(0) },
+    validators: [
+      { name: 'Foundry USA', pct: 28 },
+      { name: 'Antpool',     pct: 17 },
+      { name: 'F2Pool',      pct: 12 },
+      { name: 'Others',      pct: 43 },
+    ],
+    nakamoto: 4,
+    decentral: 'medium'
+  },
+  {
+    id: 'eth',
+    name: 'Ethereum',
+    ticker: 'ETH',
+    icon: 'Ξ',
+    iconClass: 'icon-eth',
+    nodeId: 'FNDB-ETH-NODE-01',
+    tpsRange: [12, 28],
+    feeRange: { min: 0.4, max: 3.2, native: 'gwei', nativeVal: () => (Math.random()*15+5).toFixed(1) },
+    validators: [
+      { name: 'Lido',        pct: 28 },
+      { name: 'Coinbase',    pct: 14 },
+      { name: 'Binance',     pct:  5 },
+      { name: 'Others',      pct: 53 },
+    ],
+    nakamoto: 3,
+    decentral: 'medium'
+  },
+  {
+    id: 'sol',
+    name: 'Solana',
+    ticker: 'SOL',
+    icon: '◎',
+    iconClass: 'icon-sol',
+    nodeId: 'FNDB-SOL-NODE-01',
+    tpsRange: [2200, 4800],
+    feeRange: { min: 0.0005, max: 0.004, native: 'SOL', nativeVal: () => '0.000025' },
+    validators: [
+      { name: 'Jito Labs',   pct: 22 },
+      { name: 'Jump Crypto', pct: 11 },
+      { name: 'Everstake',   pct:  8 },
+      { name: 'Others',      pct: 59 },
+    ],
+    nakamoto: 5,
+    decentral: 'medium'
+  },
+  {
+    id: 'bnb',
+    name: 'BNB Chain',
+    ticker: 'BNB',
+    icon: 'B',
+    iconClass: 'icon-bnb',
+    nodeId: 'FNDB-BNB-NODE-01',
+    tpsRange: [80, 300],
+    feeRange: { min: 0.01, max: 0.05, native: 'Gwei', nativeVal: () => (Math.random()*2+1).toFixed(0) },
+    validators: [
+      { name: 'Binance',     pct: 42 },
+      { name: 'TW Staking',  pct: 11 },
+      { name: 'Certik',      pct:  6 },
+      { name: 'Others',      pct: 41 },
+    ],
+    nakamoto: 2,
+    decentral: 'high'
+  },
+  {
+    id: 'tron',
+    name: 'TRON',
+    ticker: 'TRX',
+    icon: 'T',
+    iconClass: 'icon-tron',
+    nodeId: 'FNDB-TRX-NODE-01',
+    tpsRange: [1500, 2500],
+    feeRange: { min: 0.00, max: 0.01, native: 'TRX', nativeVal: () => '0' },
+    validators: [
+      { name: 'Binance SR',  pct: 14 },
+      { name: 'Poloniex',    pct: 11 },
+      { name: 'HTX',         pct: 10 },
+      { name: 'Others',      pct: 65 },
+    ],
+    nakamoto: 2,
+    decentral: 'high'
+  }
+];
+
+const NET_STATES = {
+  healthy:  { label: 'Block Production Normal', detail: 'Finality within expected range' },
+  degraded: { label: 'Increased Latency',       detail: 'Block times elevated — monitoring' },
+  halted:   { label: 'Block Production Stalled', detail: 'No new blocks in >2 minutes' }
+};
+
+const DECENTRAL_LABELS = {
+  low:    { label: 'Low Risk',    cls: 'risk-low' },
+  medium: { label: 'Medium Risk', cls: 'risk-medium' },
+  high:   { label: 'High Risk',   cls: 'risk-high' }
+};
+
+// ─── State ────────────────────────────────────────────────────────────────────
+let state = {};
+let lastRefresh = Date.now();
+
+function rand(min, max) { return Math.random() * (max - min) + min; }
+function randInt(min, max) { return Math.floor(rand(min, max)); }
+
+function weightedStatus() {
+  const r = Math.random();
+  if (r < 0.72) return 'healthy';
+  if (r < 0.90) return 'degraded';
+  return 'halted';
+}
+
+function nodeStatus() {
+  const r = Math.random();
+  if (r < 0.75) return 'green';
+  if (r < 0.92) return 'yellow';
+  return 'red';
+}
+
+function generateState() {
+  const s = {};
+  for (const c of CHAINS) {
+    const ns = nodeStatus();
+    const net = ns === 'red' ? 'halted' : (ns === 'yellow' ? 'degraded' : weightedStatus());
+    const lag = ns === 'green' ? randInt(0, 2) : (ns === 'yellow' ? randInt(2, 15) : randInt(20, 120));
+    s[c.id] = {
+      nodeStatus: ns,
+      networkState: net,
+      blockLag: lag,
+      uptime: ns === 'green' ? (99 + rand(0, 0.99)).toFixed(2) : (95 + rand(0, 3.5)).toFixed(2),
+      syncBlock: (17_500_000 + randInt(0, 500_000)).toLocaleString(),
+      lastBlock: randInt(1, 30) + 's ago',
+      tps: randInt(c.tpsRange[0], c.tpsRange[1]),
+      feeUSD: rand(c.feeRange.min, c.feeRange.max).toFixed(c.feeRange.max < 0.1 ? 4 : 2),
+      feeNative: c.feeRange.nativeVal(),
+      checkedAgo: randInt(1, 5) + 'm ago',
+      uptimeSegs: Array.from({length:28}, () => Math.random() > (ns === 'green' ? 0.03 : 0.12) ? 'g' : (Math.random() > 0.5 ? 'y' : 'r'))
+    };
+  }
+  return s;
+}
+
+// ─── Render ───────────────────────────────────────────────────────────────────
+function nodeLabel(s) {
+  if (s === 'green')  return 'Node Online';
+  if (s === 'yellow') return 'Degraded';
+  return 'Node Down';
+}
+
+function renderSummary() {
+  const counts = { green:0, yellow:0, red:0 };
+  let alerts = [];
+  for (const c of CHAINS) {
+    const ns = state[c.id].nodeStatus;
+    counts[ns]++;
+    if (ns === 'red')    alerts.push({ level:'red',    msg:`${c.name} node is offline — failover required` });
+    if (ns === 'yellow') alerts.push({ level:'yellow', msg:`${c.name} node degraded — increased block lag detected` });
+  }
+
+  const banner = document.getElementById('alertBanner');
+  if (alerts.length) {
+    const top = alerts.find(a=>a.level==='red') || alerts[0];
+    banner.className = `alert-banner show ${top.level}`;
+    banner.innerHTML = `<span>⚠</span> ${top.msg}${alerts.length>1 ? ` <b>+${alerts.length-1} more alerts</b>` : ''}`;
+  } else {
+    banner.className = 'alert-banner';
+    banner.innerHTML = '';
+  }
+
+  document.getElementById('summaryBar').innerHTML = `
+    <div class="stat-pill">
+      <div class="dot dot-green"></div>
+      <span class="num" style="color:var(--green)">${counts.green}</span>
+      <span class="label">/ ${CHAINS.length} Nodes Online</span>
+    </div>
+    <div class="stat-pill"><div class="dot dot-yellow"></div><span class="num" style="color:var(--yellow)">${counts.yellow}</span><span class="label">Degraded</span></div>
+    <div class="stat-pill"><div class="dot dot-red"></div><span class="num" style="color:var(--red)">${counts.red}</span><span class="label">Offline</span></div>
+    <div class="stat-pill" style="margin-left:auto">
+      <span style="color:var(--text-muted)">Monitoring ${CHAINS.length} chains · First National Digital Bank</span>
+    </div>
+  `;
+}
+
+function renderGrid() {
+  document.getElementById('grid').innerHTML = CHAINS.map(c => {
+    const s = state[c.id];
+    const ns = s.nodeStatus;
+    const net = NET_STATES[s.networkState];
+    const dc = DECENTRAL_LABELS[c.decentral];
+    const cardBorder = ns === 'red' ? 'border-red' : (ns === 'yellow' ? 'border-yellow' : '');
+
+    // Validator bars
+    const valBars = c.validators.map(v => `
+      <div class="val-row">
+        <div class="val-name" title="${v.name}">${v.name}</div>
+        <div class="val-bar-wrap"><div class="val-bar" style="width:${v.pct}%;background:${v.name==='Others'?'var(--border-2)':'var(--blue)'}"></div></div>
+        <div class="val-pct">${v.pct}%</div>
+      </div>`).join('');
+
+    // Uptime segments
+    const segs = s.uptimeSegs.map(g =>
+      `<div class="uptime-seg" style="background:${g==='g'?'var(--green)':g==='y'?'var(--yellow)':'var(--red)'}"></div>`
+    ).join('');
+
+    const lagColor = s.blockLag <= 2 ? 'ok' : (s.blockLag <= 10 ? 'warn' : 'error');
+    const netDotColor = s.networkState === 'healthy' ? 'var(--green)' : (s.networkState === 'degraded' ? 'var(--yellow)' : 'var(--red)');
+
+    return `
+    <div class="chain-card ${cardBorder}">
+
+      <!-- Header -->
+      <div class="card-header">
+        <div class="chain-id">
+          <div class="chain-icon ${c.iconClass}">${c.icon}</div>
+          <div>
+            <div class="chain-name">${c.name} <span style="color:var(--text-muted);font-weight:400;font-size:11px">${c.ticker}</span></div>
+            <div class="chain-sub">${c.nodeId}</div>
+          </div>
+        </div>
+        <div class="node-badge ${ns}">
+          <div class="dot dot-${ns}"></div>
+          ${nodeLabel(ns)}
+        </div>
+      </div>
+
+      <div class="card-sections">
+
+        <!-- Node Health -->
+        <div class="section full">
+          <div class="section-label">Bank Node Health</div>
+          <div class="node-metrics">
+            <div class="metric">
+              <div class="metric-label">Block Lag</div>
+              <div class="metric-value ${lagColor}">${s.blockLag} blocks</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Last Block Seen</div>
+              <div class="metric-value normal">${s.lastBlock}</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Node Uptime (30d)</div>
+              <div class="metric-value ${parseFloat(s.uptime)>99?'ok':'warn'}">${s.uptime}%</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Last Health Check</div>
+              <div class="metric-value normal">${s.checkedAgo}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Network Health -->
+        <div class="section">
+          <div class="section-label">Network Health</div>
+          <div class="network-status">
+            <div class="net-indicator" style="background:${netDotColor};box-shadow:0 0 6px ${netDotColor}"></div>
+            <span class="net-label" style="color:${netDotColor}">${s.networkState === 'healthy' ? 'Operational' : s.networkState === 'degraded' ? 'Degraded' : 'Halted'}</span>
+          </div>
+          <div class="net-detail">${net.label}</div>
+          <div class="net-detail" style="margin-top:2px;color:var(--text-dim)">${net.detail}</div>
+        </div>
+
+        <!-- TPS -->
+        <div class="section">
+          <div class="section-label">Throughput</div>
+          <div class="big-stat">
+            <span class="big-num">${s.tps.toLocaleString()}</span>
+            <span class="big-unit">TPS</span>
+          </div>
+          <div style="color:var(--text-dim);font-size:11px;margin-top:3px">Transactions/sec</div>
+        </div>
+
+        <!-- Fee -->
+        <div class="section">
+          <div class="section-label">Current Tx Fee</div>
+          <div class="fee-row">
+            <div class="fee-native">${s.feeNative} <span style="color:var(--text-muted);font-weight:400;font-size:11px">${c.feeRange.native}</span></div>
+            <div class="fee-usd">≈ $${s.feeUSD} USD</div>
+          </div>
+        </div>
+
+        <!-- Centralization -->
+        <div class="section full">
+          <div class="section-label">Validator Centralization</div>
+          <div class="decentral-score">
+            <span class="decentral-label">Nakamoto Coefficient: <strong>${c.nakamoto}</strong></span>
+            <span class="risk-badge ${dc.cls}">${dc.label}</span>
+          </div>
+          <div class="validator-bars">${valBars}</div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="card-footer">
+        <div class="uptime-bar-wrap">
+          <span>30d uptime</span>
+          <div class="uptime-strip">${segs}</div>
+        </div>
+        <span>Sync block #${s.syncBlock}</span>
+      </div>
+
+    </div>`;
+  }).join('');
+}
+
+// ─── Refresh ──────────────────────────────────────────────────────────────────
+function runCheck() {
+  const icon = document.getElementById('refreshIcon');
+  icon.classList.add('spin');
+  setTimeout(() => {
+    state = generateState();
+    lastRefresh = Date.now();
+    renderSummary();
+    renderGrid();
+    icon.classList.remove('spin');
+    updateRefreshLabel();
+  }, 600 + Math.random() * 900);
+}
+
+function updateRefreshLabel() {
+  const secs = Math.floor((Date.now() - lastRefresh) / 1000);
+  const lbl = secs < 60 ? `Updated ${secs}s ago` : `Updated ${Math.floor(secs/60)}m ago`;
+  document.getElementById('refreshLabel').textContent = lbl;
+}
+
+setInterval(runCheck, 60_000);
+setInterval(updateRefreshLabel, 5_000);
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+state = generateState();
+renderSummary();
+renderGrid();
+</script>
+</body>
+</html>
