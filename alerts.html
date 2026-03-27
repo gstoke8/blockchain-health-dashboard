@@ -20,9 +20,6 @@
       --green:        #3fb950;
       --green-bg:     rgba(63,185,80,0.08);
       --green-border: rgba(63,185,80,0.25);
-      --yellow:        #d29922;
-      --yellow-bg:     rgba(210,153,34,0.08);
-      --yellow-border: rgba(210,153,34,0.25);
       --red:        #f85149;
       --red-bg:     rgba(248,81,73,0.08);
       --red-border: rgba(248,81,73,0.25);
@@ -45,15 +42,14 @@
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 0 20px;
-      height: 44px;
+      padding: 0 20px; height: 44px;
       display: flex; align-items: center; justify-content: space-between;
       position: sticky; top: 0; z-index: 20;
     }
 
     .logo {
       display: flex; align-items: center; gap: 10px;
-      font-size: 14px; font-weight: 700; letter-spacing: -0.2px;
+      font-size: 14px; font-weight: 700;
     }
     .logo-mark {
       width: 30px; height: 30px;
@@ -70,16 +66,14 @@
       color: var(--text); padding: 5px 12px; border-radius: 6px;
       cursor: pointer; font-size: 12px; font-family: 'IBM Plex Sans', inherit;
       display: flex; align-items: center; gap: 6px;
-      transition: background 0.15s, border-color 0.15s; text-decoration: none;
+      transition: background 0.15s; text-decoration: none;
     }
-    .btn:hover { background: var(--surface-3); border-color: var(--border-2); }
+    .btn:hover { background: var(--surface-3); }
     .btn-amber { border-color: var(--amber-border); color: var(--amber); }
-    .btn-green { border-color: var(--green-border); color: var(--green); }
 
     /* Summary bar */
     .summary-bar {
-      padding: 6px 20px; display: flex; align-items: center;
-      gap: 6px; flex-wrap: wrap;
+      padding: 5px 20px; display: flex; align-items: center; gap: 6px;
       border-bottom: 1px solid var(--border); background: var(--surface);
     }
     .stat-pill {
@@ -89,57 +83,49 @@
     }
     .stat-pill .num { font-weight: 700; font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
     .stat-pill .lbl { color: var(--text-muted); }
-    .bar-div { width: 1px; height: 18px; background: var(--border); margin: 0 4px; }
-    .sdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-    .sdot-green  { background: var(--green); }
-    .sdot-yellow { background: var(--yellow); }
-    .sdot-red    { background: var(--red); animation: blink 1.4s infinite; }
+    .bar-div { width: 1px; height: 18px; background: var(--border); margin: 0 3px; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .dot-green { background: var(--green); }
+    .dot-red   { background: var(--red); animation: blink 1.4s infinite; }
     @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.4} }
 
-    /* Main layout */
+    /* Violations */
     .main { padding: 12px 20px 28px; }
-
-    /* Violation log */
-    .violations {
-      margin-bottom: 16px; border: 1px solid var(--border);
-      border-radius: 8px; overflow: hidden;
-    }
-    .violations-hdr {
+    .viol-panel { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 16px; }
+    .viol-hdr {
       background: var(--surface-2); padding: 5px 12px;
       font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
       color: var(--text-dim); border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
     }
-    .violations-body { padding: 4px 12px 6px; background: var(--surface); }
+    .viol-body { padding: 4px 12px 6px; background: var(--surface); }
     .viol-row {
       display: flex; align-items: center; gap: 8px;
-      padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.03);
-      font-size: 11px;
+      padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 11px;
     }
     .viol-row:last-child { border-bottom: none; }
-    .viol-sev {
-      font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px;
-      padding: 1px 5px; border-radius: 2px; flex-shrink: 0;
+    .viol-tag {
+      font-size: 8px; font-weight: 700; text-transform: uppercase; padding: 1px 5px;
+      border-radius: 2px; flex-shrink: 0;
+      background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border);
     }
-    .viol-sev.crit { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
-    .viol-sev.warn { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
-    .viol-msg  { flex: 1; color: var(--text-muted); }
-    .viol-val  { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--text); }
+    .viol-msg { flex: 1; color: var(--text-muted); }
+    .viol-val { font-family: 'IBM Plex Mono', monospace; font-size: 10px; }
     .viol-thresh { font-size: 9px; color: var(--text-dim); }
-    .no-violations { padding: 8px 0; color: var(--text-dim); font-size: 11px; display: flex; align-items: center; gap: 6px; }
+    .no-viols { padding: 8px 0; color: var(--text-dim); font-size: 11px; display: flex; align-items: center; gap: 6px; }
 
-    /* Section headings */
-    .section { margin-bottom: 18px; }
+    /* Section */
+    .section { margin-bottom: 16px; }
     .section-title {
       font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
       color: var(--text-muted); margin-bottom: 8px;
       display: flex; align-items: center; gap: 8px;
     }
-    .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .section-title::after { content:''; flex:1; height:1px; background:var(--border); }
 
-    /* Matrix table */
+    /* Matrix */
     .matrix-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
-    .matrix { width: 100%; border-collapse: collapse; background: var(--surface); }
+    .matrix { border-collapse: collapse; background: var(--surface); }
     .matrix th, .matrix td {
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -147,63 +133,73 @@
     .matrix th:last-child, .matrix td:last-child { border-right: none; }
     .matrix tr:last-child td { border-bottom: none; }
 
-    /* Column headers */
-    .col-hdr { padding: 6px 10px; text-align: center; background: var(--surface-2); }
-    .chain-icon-sm {
+    /* Row label cell */
+    .rlbl {
+      padding: 6px 12px; background: var(--surface-2);
+      min-width: 165px; vertical-align: middle; position: sticky; left: 0; z-index: 2;
+    }
+    .rlbl-name { font-size: 11px; font-weight: 600; }
+    .rlbl-desc { font-size: 9px; color: var(--text-dim); margin-top: 1px; }
+
+    /* Column header */
+    .chdr { padding: 5px 8px; text-align: center; background: var(--surface-2); }
+    .chdr-icon {
       width: 20px; height: 20px; border-radius: 50%;
       display: inline-flex; align-items: center; justify-content: center;
-      font-size: 9px; font-weight: 700; margin-bottom: 3px;
-      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; font-weight: 700; font-family: 'IBM Plex Mono', monospace;
+      margin-bottom: 2px;
     }
-    .col-hdr-name { font-size: 11px; font-weight: 700; color: var(--text); }
-    .col-hdr-sub  { font-size: 9px; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; }
+    .chdr-name { font-size: 11px; font-weight: 700; }
+    .chdr-sub  { font-size: 8px; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; }
 
-    /* Row label */
-    .row-lbl { padding: 6px 12px; background: var(--surface-2); min-width: 170px; vertical-align: middle; }
-    .row-lbl-name { font-size: 11px; font-weight: 600; color: var(--text); }
-    .row-lbl-desc { font-size: 9px; color: var(--text-dim); margin-top: 1px; }
+    /* Node group header */
+    .grphdr {
+      background: var(--surface-3); padding: 3px 8px; text-align: center;
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--text-dim); border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border-2);
+    }
 
     /* Alert cell */
-    .acell { padding: 6px 8px; min-width: 120px; vertical-align: top; }
-    .acell.na { background: rgba(255,255,255,0.012); text-align: center; vertical-align: middle; color: var(--text-dim); font-size: 10px; }
-    .acell.disabled { opacity: 0.38; }
-    .acell.ok   { }
-    .acell.warn { background: var(--yellow-bg); outline: 1px solid var(--yellow-border); outline-offset: -1px; }
-    .acell.crit { background: var(--red-bg);    outline: 1px solid var(--red-border);    outline-offset: -1px; }
-
-    .acell-top { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+    .acell {
+      padding: 6px 8px; min-width: 100px; max-width: 130px;
+      vertical-align: top;
+    }
+    .acell.na { text-align: center; vertical-align: middle; color: var(--text-dim); font-size: 10px; background: rgba(255,255,255,0.01); }
+    .acell.off { opacity: 0.35; }
+    .acell.ok  { }
+    .acell.alert { background: var(--red-bg); outline: 1px solid var(--red-border); outline-offset: -1px; }
+    .acell.bcast { background: rgba(227,162,74,0.03); }
+    .acell.bcast.alert { background: var(--red-bg); }
 
     /* Toggle */
+    .row1 { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
     .toggle { position: relative; width: 28px; height: 15px; flex-shrink: 0; cursor: pointer; }
     .toggle input { display: none; }
     .toggle-track {
       position: absolute; inset: 0;
       background: var(--surface-3); border: 1px solid var(--border-2);
-      border-radius: 8px; transition: background 0.2s, border-color 0.2s;
+      border-radius: 8px; transition: background 0.2s;
     }
     .toggle input:checked + .toggle-track { background: var(--green); border-color: var(--green); }
     .toggle-thumb {
-      position: absolute; top: 3px; left: 3px;
-      width: 9px; height: 9px; border-radius: 50%;
-      background: var(--text-dim); transition: transform 0.2s, background 0.2s;
-      pointer-events: none;
+      position: absolute; top: 3px; left: 3px; width: 9px; height: 9px;
+      border-radius: 50%; background: var(--text-dim);
+      transition: transform 0.2s, background 0.2s; pointer-events: none;
     }
     .toggle input:checked ~ .toggle-thumb { transform: translateX(13px); background: #fff; }
 
-    .acell-status { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
-    .status-ok   { color: var(--green); }
-    .status-warn { color: var(--yellow); }
-    .status-crit { color: var(--red); }
-    .status-off  { color: var(--text-dim); }
+    .astatus { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2px; }
+    .astatus.ok    { color: var(--green); }
+    .astatus.alert { color: var(--red); }
+    .astatus.off   { color: var(--text-dim); }
 
-    /* Threshold inputs */
+    /* Threshold row */
     .thresh-row { display: flex; align-items: center; gap: 4px; margin-bottom: 3px; }
-    .thresh-lbl {
-      font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px;
-      width: 28px; flex-shrink: 0;
+    .thresh-dir {
+      font-size: 9px; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace;
+      flex-shrink: 0; width: 10px; text-align: center;
     }
-    .thresh-lbl.warn { color: var(--yellow); }
-    .thresh-lbl.crit { color: var(--red); }
     .thresh-input {
       background: var(--surface-3); border: 1px solid var(--border);
       color: var(--text); font-family: 'IBM Plex Mono', monospace;
@@ -213,23 +209,9 @@
     .thresh-input:focus { outline: none; border-color: var(--amber-border); }
     .thresh-unit { font-size: 9px; color: var(--text-dim); }
 
-    .curr-val { font-size: 9px; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; margin-top: 3px; }
-    .vok   { color: var(--green); }
-    .vwarn { color: var(--yellow); font-weight: 600; }
-    .vcrit { color: var(--red);    font-weight: 600; }
-
-    /* Node matrix group header */
-    .group-hdr {
-      background: var(--surface-3); padding: 4px 10px; text-align: center;
-      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
-      color: var(--text-dim); border-bottom: 1px solid var(--border);
-      border-right: 1px solid var(--border-2);
-    }
-    .bcast-col-hdr { background: rgba(227,162,74,0.06) !important; }
-    .bcast-acell   { background: rgba(227,162,74,0.03); }
-    .bcast-acell.warn { background: var(--yellow-bg); }
-    .bcast-acell.crit { background: var(--red-bg); }
-    .bcast-acell.disabled { background: rgba(227,162,74,0.02); }
+    .curr { font-size: 9px; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; margin-top: 2px; }
+    .curr .ok    { color: var(--green); }
+    .curr .alert { color: var(--red); font-weight: 600; }
   </style>
 </head>
 <body>
@@ -243,7 +225,7 @@
   <div class="header-right">
     <span style="font-size:10px;color:var(--text-dim)" id="simLabel">Simulated state</span>
     <button class="btn" onclick="simulate()">↻ Resimulate</button>
-    <button class="btn btn-green" onclick="saveConfig(this)">✓ Save Config</button>
+    <button class="btn" onclick="saveConfig(this)">✓ Save</button>
     <a class="btn btn-amber" href="index.html">← Dashboard</a>
   </div>
 </header>
@@ -251,29 +233,23 @@
 <div class="summary-bar" id="summaryBar"></div>
 
 <div class="main">
-
-  <div class="violations" id="violationsSection">
-    <div class="violations-hdr">
-      <span>Active Violations</span>
+  <div class="viol-panel">
+    <div class="viol-hdr">
+      <span>Active Alerts</span>
       <span id="violCount" style="font-family:'IBM Plex Mono',monospace;color:var(--text-muted)"></span>
     </div>
-    <div class="violations-body" id="violationsBody"></div>
+    <div class="viol-body" id="violsBody"></div>
   </div>
 
   <div class="section">
-    <div class="section-title">Network Health Alerts — per chain</div>
-    <div class="matrix-wrap">
-      <table class="matrix" id="networkMatrix"></table>
-    </div>
+    <div class="section-title">Network Health — per chain</div>
+    <div class="matrix-wrap"><table class="matrix" id="netMatrix"></table></div>
   </div>
 
   <div class="section">
-    <div class="section-title">Institution Node Alerts — per node</div>
-    <div class="matrix-wrap">
-      <table class="matrix" id="nodeMatrix"></table>
-    </div>
+    <div class="section-title">Node Health — per node</div>
+    <div class="matrix-wrap"><table class="matrix" id="nodeMatrix"></table></div>
   </div>
-
 </div>
 
 <script>
@@ -281,579 +257,386 @@
 const CHAINS = [
   {
     id: 'eth', name: 'Ethereum', icon: 'Ξ',
-    iconBg: 'rgba(98,126,234,0.15)', iconColor: '#627eea',
-    typeLabel: 'L1 · PoS',
-    tpsRange: [12, 28], feeRange: [0.4, 3.2],
-    broadcastNode: { id: 'FNDB-ETH-VAL-01',     type: 'Validator' },
-    readNodes:     [
-      { id: 'FNDB-ETH-RO-01', type: 'Read-Only' },
-      { id: 'FNDB-ETH-RO-02', type: 'Read-Only' },
-      { id: 'FNDB-ETH-RO-03', type: 'Read-Only' },
+    iconBg: 'rgba(98,126,234,0.15)', iconColor: '#627eea', typeLabel: 'L1 · PoS',
+    tpsRange: [12,28], feeRange: [0.4,3.2],
+    broadcastNode: { id:'FNDB-ETH-VAL-01', type:'Validator' },
+    readNodes: [
+      {id:'FNDB-ETH-RO-01',type:'Read-Only'},
+      {id:'FNDB-ETH-RO-02',type:'Read-Only'},
+      {id:'FNDB-ETH-RO-03',type:'Read-Only'},
     ],
   },
   {
     id: 'sol', name: 'Solana', icon: '◎',
-    iconBg: 'rgba(153,69,255,0.15)', iconColor: '#9945ff',
-    typeLabel: 'L1 · PoH',
-    tpsRange: [2200, 4800], feeRange: [0.000025, 0.000025],
-    broadcastNode: { id: 'FNDB-SOL-VAL-01',     type: 'Validator' },
-    readNodes:     [
-      { id: 'FNDB-SOL-RO-01', type: 'Read-Only' },
-      { id: 'FNDB-SOL-RO-02', type: 'Read-Only' },
-      { id: 'FNDB-SOL-RO-03', type: 'Read-Only' },
+    iconBg: 'rgba(153,69,255,0.15)', iconColor: '#9945ff', typeLabel: 'L1 · PoH',
+    tpsRange: [2200,4800], feeRange: [0.000025,0.000025],
+    broadcastNode: { id:'FNDB-SOL-VAL-01', type:'Validator' },
+    readNodes: [
+      {id:'FNDB-SOL-RO-01',type:'Read-Only'},
+      {id:'FNDB-SOL-RO-02',type:'Read-Only'},
+      {id:'FNDB-SOL-RO-03',type:'Read-Only'},
     ],
   },
   {
     id: 'canton', name: 'Canton', icon: 'C',
-    iconBg: 'rgba(74,127,212,0.15)', iconColor: '#4a7fd4',
-    typeLabel: 'Enterprise DLT', isEnterprise: true,
-    broadcastNode: { id: 'FNDB-CANTON-PART-01',  type: 'Participant' },
-    readNodes:     [
-      { id: 'FNDB-CANTON-RO-01', type: 'Observer' },
-      { id: 'FNDB-CANTON-RO-02', type: 'Observer' },
+    iconBg: 'rgba(74,127,212,0.15)', iconColor: '#4a7fd4', typeLabel: 'Enterprise DLT',
+    isEnterprise: true,
+    broadcastNode: { id:'FNDB-CANTON-PART-01', type:'Participant' },
+    readNodes: [
+      {id:'FNDB-CANTON-RO-01',type:'Observer'},
+      {id:'FNDB-CANTON-RO-02',type:'Observer'},
     ],
   },
   {
     id: 'base', name: 'Base', icon: 'B',
-    iconBg: 'rgba(0,102,255,0.15)', iconColor: '#4d88ff',
-    typeLabel: 'OP Stack L2', isL2: true,
-    tpsRange: [15, 85], feeRange: [0.0002, 0.002],
-    broadcastNode: { id: 'FNDB-BASE-NODE-01',    type: 'Writer' },
-    readNodes:     [
-      { id: 'FNDB-BASE-RO-01', type: 'Read-Only' },
-      { id: 'FNDB-BASE-RO-02', type: 'Read-Only' },
-      { id: 'FNDB-BASE-RO-03', type: 'Read-Only' },
+    iconBg: 'rgba(0,102,255,0.15)', iconColor: '#4d88ff', typeLabel: 'OP Stack L2',
+    isL2: true, tpsRange: [15,85], feeRange: [0.0002,0.002],
+    broadcastNode: { id:'FNDB-BASE-NODE-01', type:'Writer' },
+    readNodes: [
+      {id:'FNDB-BASE-RO-01',type:'Read-Only'},
+      {id:'FNDB-BASE-RO-02',type:'Read-Only'},
+      {id:'FNDB-BASE-RO-03',type:'Read-Only'},
     ],
   },
 ];
 
-// ─── Alert Rule Definitions ───────────────────────────────────────────────────
-
-const NET_ROWS = [
-  {
-    id: 'netStatus', name: 'Network Status', desc: 'Alert on degraded or halted network state',
-    type: 'status', applies: ['eth','sol','canton','base'],
-    defaults: { enabled: true },
-  },
-  {
-    id: 'broadcastDown', name: 'Broadcast Node Offline', desc: 'Broadcast / validator node is offline',
-    type: 'bool', applies: ['eth','sol','canton','base'],
-    defaults: { enabled: true },
-  },
-  {
-    id: 'broadcastDegraded', name: 'Broadcast Node Degraded', desc: 'Broadcast / validator node is degraded',
-    type: 'bool', applies: ['eth','sol','canton','base'],
-    defaults: { enabled: true },
-  },
-  {
-    id: 'tps', name: 'TPS Drop', desc: 'Throughput falls below threshold',
-    type: 'numeric', unit: 'TPS', dir: 'below', applies: ['eth','sol','base'],
-    chainDefaults: { eth: { warn:10, crit:5 }, sol: { warn:1000, crit:500 }, base: { warn:10, crit:5 } },
-    defaults: { enabled: true },
-  },
-  {
-    id: 'feeUSD', name: 'Fee Spike', desc: 'Transaction fee exceeds threshold (USD)',
-    type: 'numeric', unit: 'USD', dir: 'above', applies: ['eth','sol','base'],
-    chainDefaults: { eth: { warn:2.5, crit:5.0 }, sol: { warn:0.005, crit:0.01 }, base: { warn:0.005, crit:0.01 } },
-    defaults: { enabled: false },
-  },
-  {
-    id: 'ledgerEvents', name: 'Ledger Events Drop', desc: 'Canton DAML events/sec below threshold',
-    type: 'numeric', unit: 'ev/s', dir: 'below', applies: ['canton'],
-    chainDefaults: { canton: { warn:50, crit:20 } },
-    defaults: { enabled: true },
-  },
-  {
-    id: 'activeContracts', name: 'Active Contracts Drop', desc: 'Canton active DAML contracts below threshold',
-    type: 'numeric', unit: 'contracts', dir: 'below', applies: ['canton'],
-    chainDefaults: { canton: { warn:5000, crit:2000 } },
-    defaults: { enabled: false },
-  },
-  {
-    id: 'syncDomain', name: 'Sync Domain Degraded', desc: 'Canton sync domain offline or degraded',
-    type: 'bool', applies: ['canton'],
-    defaults: { enabled: true },
-  },
-  {
-    id: 'l1DataLag', name: 'L1 Data Lag', desc: 'Base L1 data lag exceeds threshold (blocks behind)',
-    type: 'numeric', unit: 'blocks', dir: 'above', applies: ['base'],
-    chainDefaults: { base: { warn:3, crit:6 } },
-    defaults: { enabled: true },
-  },
-  {
-    id: 'bridgeHealth', name: 'Bridge Degraded', desc: 'Base L1 ↔ L2 bridge degraded or offline',
-    type: 'bool', applies: ['base'],
-    defaults: { enabled: true },
-  },
-  {
-    id: 'sequencer', name: 'Sequencer Degraded', desc: 'Base Coinbase sequencer degraded or offline',
-    type: 'bool', applies: ['base'],
-    defaults: { enabled: true },
-  },
+// ─── Alert Definitions ────────────────────────────────────────────────────────
+// type: 'bool' = on/off only | 'above' = alert when value exceeds threshold | 'below' = alert when value falls below threshold
+const NET_ALERTS = [
+  { id:'netStatus',     name:'Network Status',         desc:'Alert when degraded or halted',            type:'bool',  applies:['eth','sol','canton','base'], defaults:{enabled:true} },
+  { id:'broadcastDown', name:'Broadcast Node Offline',  desc:'Broadcast/validator is offline',           type:'bool',  applies:['eth','sol','canton','base'], defaults:{enabled:true} },
+  { id:'broadcastDeg',  name:'Broadcast Node Degraded', desc:'Broadcast/validator is degraded',          type:'bool',  applies:['eth','sol','canton','base'], defaults:{enabled:true} },
+  { id:'tps',           name:'TPS Drop',                desc:'Throughput falls below min',               type:'below', unit:'TPS',       applies:['eth','sol','base'],
+    chainThresh:{ eth:10, sol:1000, base:10 }, defaults:{enabled:true} },
+  { id:'feeUSD',        name:'Fee Spike',               desc:'Transaction fee exceeds max (USD)',         type:'above', unit:'USD',       applies:['eth','sol','base'],
+    chainThresh:{ eth:2.5, sol:0.005, base:0.005 }, defaults:{enabled:false} },
+  { id:'ledgerEvents',  name:'Ledger Events Drop',      desc:'Canton DAML events/sec below min',         type:'below', unit:'ev/s',      applies:['canton'], chainThresh:{canton:50}, defaults:{enabled:true} },
+  { id:'contracts',     name:'Active Contracts Drop',   desc:'Canton active contracts below min',         type:'below', unit:'contracts', applies:['canton'], chainThresh:{canton:5000}, defaults:{enabled:false} },
+  { id:'syncDomain',    name:'Sync Domain Degraded',    desc:'Canton sync domain offline or degraded',   type:'bool',  applies:['canton'], defaults:{enabled:true} },
+  { id:'l1Lag',         name:'L1 Data Lag',             desc:'Base L1 lag exceeds max (blocks behind)',  type:'above', unit:'blocks',    applies:['base'], chainThresh:{base:4}, defaults:{enabled:true} },
+  { id:'bridge',        name:'Bridge Degraded',         desc:'Base L1↔L2 bridge degraded',              type:'bool',  applies:['base'], defaults:{enabled:true} },
+  { id:'sequencer',     name:'Sequencer Degraded',      desc:'Base Coinbase sequencer degraded',         type:'bool',  applies:['base'], defaults:{enabled:true} },
 ];
 
-const NODE_ROWS = [
-  {
-    id: 'nodeDown', name: 'Node Offline', desc: 'Node status transitions to offline',
-    type: 'bool', defaults: { enabled: true },
-  },
-  {
-    id: 'nodeDeg', name: 'Node Degraded', desc: 'Node status transitions to degraded',
-    type: 'bool', defaults: { enabled: true },
-  },
-  {
-    id: 'lag', name: 'Block / Event Lag', desc: 'Lag exceeds warn / critical block threshold',
-    type: 'numeric', unit: 'blk', dir: 'above', defaults: { enabled: true, warn: 5, crit: 15 },
-  },
-  {
-    id: 'uptime', name: '30d Uptime', desc: 'Uptime % falls below warn / critical threshold',
-    type: 'numeric', unit: '%', dir: 'below', defaults: { enabled: true, warn: 99.0, crit: 97.0 },
-  },
-  {
-    id: 'stale', name: 'Stale Update', desc: 'No heartbeat received within threshold',
-    type: 'numeric', unit: 'min', dir: 'above', defaults: { enabled: true, warn: 5, crit: 15 },
-  },
+const NODE_ALERTS = [
+  { id:'down',    name:'Node Offline',      desc:'Node transitions to offline',               type:'bool',  defaults:{enabled:true} },
+  { id:'deg',     name:'Node Degraded',     desc:'Node transitions to degraded',              type:'bool',  defaults:{enabled:true} },
+  { id:'lag',     name:'Block / Event Lag', desc:'Lag exceeds max blocks / events',           type:'above', unit:'blk', defaults:{enabled:true,  thresh:10} },
+  { id:'uptime',  name:'30d Uptime',        desc:'Uptime % falls below min',                  type:'below', unit:'%',   defaults:{enabled:true,  thresh:97.0} },
+  { id:'stale',   name:'Stale Update',      desc:'No heartbeat within max minutes',           type:'above', unit:'min', defaults:{enabled:true,  thresh:10} },
 ];
 
-// ─── Config Persistence ───────────────────────────────────────────────────────
-
-function buildDefaultConfig() {
-  const cfg = { network: {}, nodes: {} };
-  for (const chain of CHAINS) {
-    cfg.network[chain.id] = {};
-    for (const row of NET_ROWS) {
-      if (!row.applies.includes(chain.id)) continue;
-      const cd = row.chainDefaults ? row.chainDefaults[chain.id] : null;
-      cfg.network[chain.id][row.id] = { ...row.defaults, ...(cd || {}) };
+// ─── Config ───────────────────────────────────────────────────────────────────
+function buildDefaultCfg() {
+  const cfg = { network:{}, nodes:{} };
+  for (const c of CHAINS) {
+    cfg.network[c.id] = {};
+    for (const a of NET_ALERTS) {
+      if (!a.applies.includes(c.id)) continue;
+      const thresh = a.chainThresh ? a.chainThresh[c.id] : undefined;
+      cfg.network[c.id][a.id] = { ...a.defaults, ...(thresh != null ? {thresh} : {}) };
     }
   }
-  for (const chain of CHAINS) {
-    for (const node of [chain.broadcastNode, ...chain.readNodes]) {
-      cfg.nodes[node.id] = {};
-      for (const row of NODE_ROWS) {
-        cfg.nodes[node.id][row.id] = { ...row.defaults };
-      }
+  for (const c of CHAINS) {
+    for (const n of [c.broadcastNode, ...c.readNodes]) {
+      cfg.nodes[n.id] = {};
+      for (const a of NODE_ALERTS) cfg.nodes[n.id][a.id] = { ...a.defaults };
     }
   }
   return cfg;
 }
 
 let cfg = (() => {
-  try {
-    const saved = localStorage.getItem('fndb_alert_config_v2');
-    if (saved) return JSON.parse(saved);
-  } catch(e) {}
-  return buildDefaultConfig();
+  try { const s = localStorage.getItem('fndb_am_v3'); if (s) return JSON.parse(s); } catch(e) {}
+  return buildDefaultCfg();
 })();
 
 function saveConfig(btn) {
-  localStorage.setItem('fndb_alert_config_v2', JSON.stringify(cfg));
-  if (btn) {
-    btn.textContent = '✓ Saved';
-    btn.style.color = 'var(--green)';
-    setTimeout(() => { btn.textContent = '✓ Save Config'; btn.style.color = ''; }, 1800);
-  }
+  localStorage.setItem('fndb_am_v3', JSON.stringify(cfg));
+  if (btn) { btn.textContent = '✓ Saved'; setTimeout(() => btn.textContent = '✓ Save', 1800); }
 }
 
-// ─── State Simulation ─────────────────────────────────────────────────────────
-
+// ─── Simulation ───────────────────────────────────────────────────────────────
 const sim = {};
-
-function rand(a, b) { return Math.random() * (b - a) + a; }
-function randInt(a, b) { return Math.floor(rand(a, b + 1)); }
+const rand  = (a,b) => Math.random()*(b-a)+a;
+const randI = (a,b) => Math.floor(rand(a,b+1));
 
 function simulate() {
   for (const c of CHAINS) {
-    const bcastDown = Math.random() < 0.10;
-    const bcastDeg  = !bcastDown && Math.random() < 0.12;
+    const bDown = Math.random() < 0.10;
+    const bDeg  = !bDown && Math.random() < 0.12;
     sim[c.id] = {
-      netState:          bcastDown ? 'halted' : bcastDeg ? 'degraded' : (Math.random() > 0.15 ? 'healthy' : 'degraded'),
-      broadcastDown:     bcastDown,
-      broadcastDegraded: bcastDeg,
-      tps:               c.tpsRange ? randInt(c.tpsRange[0], c.tpsRange[1]) : null,
-      feeUSD:            c.feeRange ? parseFloat(rand(c.feeRange[0], c.feeRange[1]).toFixed(6)) : null,
-      ledgerEvents:      c.isEnterprise ? randInt(20, 400) : null,
-      activeContracts:   c.isEnterprise ? randInt(3000, 13000) : null,
-      syncDomainDeg:     c.isEnterprise ? Math.random() < 0.12 : false,
-      l1DataLag:         c.isL2 ? randInt(0, 8) : null,
-      bridgeDeg:         c.isL2 ? Math.random() < 0.08 : false,
-      sequencerDeg:      c.isL2 ? Math.random() < 0.10 : false,
+      netBad:        bDown || bDeg,
+      broadcastDown: bDown,
+      broadcastDeg:  bDeg,
+      tps:           c.tpsRange ? randI(c.tpsRange[0], c.tpsRange[1]) : null,
+      feeUSD:        c.feeRange ? parseFloat(rand(c.feeRange[0], c.feeRange[1]).toFixed(6)) : null,
+      ledgerEvents:  c.isEnterprise ? randI(20,400)   : null,
+      contracts:     c.isEnterprise ? randI(3000,13000): null,
+      syncDomainDeg: c.isEnterprise ? Math.random()<0.12 : false,
+      l1Lag:         c.isL2 ? randI(0,8)   : null,
+      bridgeDeg:     c.isL2 ? Math.random()<0.08 : false,
+      sequencerDeg:  c.isL2 ? Math.random()<0.10 : false,
     };
-    for (const node of [c.broadcastNode, ...c.readNodes]) {
-      const st = Math.random() > 0.82 ? (Math.random() > 0.5 ? 'degraded' : 'offline') : 'online';
-      sim[node.id] = {
+    for (const n of [c.broadcastNode, ...c.readNodes]) {
+      const st = Math.random()>0.82 ? (Math.random()>0.5?'degraded':'offline') : 'online';
+      sim[n.id] = {
         status: st,
-        lag:    st === 'online' ? randInt(0,3)  : st === 'degraded' ? randInt(3,18)  : randInt(15,60),
-        uptime: parseFloat(
-          st === 'online'   ? (99 + rand(0,0.99)).toFixed(2) :
-          st === 'degraded' ? (95 + rand(0,3.5)).toFixed(2)  :
-                              (88 + rand(0,6)).toFixed(2)
-        ),
-        stale:  st === 'online' ? randInt(0,4)  : st === 'degraded' ? randInt(2,12) : randInt(8,30),
+        lag:    st==='online' ? randI(0,3)  : st==='degraded' ? randI(3,18)  : randI(15,60),
+        uptime: parseFloat(st==='online' ? (99+rand(0,0.99)).toFixed(2) : st==='degraded' ? (95+rand(0,3.5)).toFixed(2) : (88+rand(0,6)).toFixed(2)),
+        stale:  st==='online' ? randI(0,4)  : st==='degraded' ? randI(2,12) : randI(8,30),
       };
     }
   }
-  const t = new Date().toLocaleTimeString();
-  document.getElementById('simLabel').textContent = `Simulated at ${t}`;
+  document.getElementById('simLabel').textContent = `Simulated at ${new Date().toLocaleTimeString()}`;
   render();
 }
 
-// ─── Violation Evaluation ─────────────────────────────────────────────────────
-
-function evalNet(chainId, rowId) {
-  const s = sim[chainId];
-  const c = cfg.network[chainId]?.[rowId];
+// ─── Evaluate ─────────────────────────────────────────────────────────────────
+function evalNet(chainId, alertId) {
+  const s = sim[chainId]; const c = cfg.network[chainId]?.[alertId];
   if (!c?.enabled || !s) return null;
-
-  if (rowId === 'netStatus') {
-    return s.netState === 'halted' ? 'crit' : s.netState === 'degraded' ? 'warn' : 'ok';
-  }
-  if (rowId === 'broadcastDown')    return s.broadcastDown     ? 'crit' : 'ok';
-  if (rowId === 'broadcastDegraded') return s.broadcastDegraded ? 'warn' : 'ok';
-  if (rowId === 'syncDomain')       return s.syncDomainDeg     ? 'warn' : 'ok';
-  if (rowId === 'bridgeHealth')     return s.bridgeDeg         ? 'warn' : 'ok';
-  if (rowId === 'sequencer')        return s.sequencerDeg      ? 'warn' : 'ok';
-
-  const map = { tps: s.tps, feeUSD: s.feeUSD, ledgerEvents: s.ledgerEvents, activeContracts: s.activeContracts, l1DataLag: s.l1DataLag };
-  const val = map[rowId];
-  if (val == null) return null;
-
-  const row = NET_ROWS.find(r => r.id === rowId);
-  if (row.dir === 'below') {
-    return val <= c.crit ? 'crit' : val <= c.warn ? 'warn' : 'ok';
-  } else {
-    return val >= c.crit ? 'crit' : val >= c.warn ? 'warn' : 'ok';
-  }
+  if (alertId==='netStatus')     return s.netBad        ? 'alert' : 'ok';
+  if (alertId==='broadcastDown') return s.broadcastDown ? 'alert' : 'ok';
+  if (alertId==='broadcastDeg')  return s.broadcastDeg  ? 'alert' : 'ok';
+  if (alertId==='syncDomain')    return s.syncDomainDeg ? 'alert' : 'ok';
+  if (alertId==='bridge')        return s.bridgeDeg     ? 'alert' : 'ok';
+  if (alertId==='sequencer')     return s.sequencerDeg  ? 'alert' : 'ok';
+  const val = { tps:s.tps, feeUSD:s.feeUSD, ledgerEvents:s.ledgerEvents, contracts:s.contracts, l1Lag:s.l1Lag }[alertId];
+  if (val==null) return null;
+  const a = NET_ALERTS.find(r=>r.id===alertId);
+  return a.type==='below' ? (val<=c.thresh?'alert':'ok') : (val>=c.thresh?'alert':'ok');
 }
 
-function evalNode(nodeId, rowId) {
-  const s = sim[nodeId];
-  const c = cfg.nodes[nodeId]?.[rowId];
+function evalNode(nodeId, alertId) {
+  const s = sim[nodeId]; const c = cfg.nodes[nodeId]?.[alertId];
   if (!c?.enabled || !s) return null;
-
-  if (rowId === 'nodeDown') return s.status === 'offline'  ? 'crit' : 'ok';
-  if (rowId === 'nodeDeg')  return s.status === 'degraded' ? 'warn' : 'ok';
-
-  const val = { lag: s.lag, uptime: s.uptime, stale: s.stale }[rowId];
-  if (val == null) return null;
-  const row = NODE_ROWS.find(r => r.id === rowId);
-  if (row.dir === 'below') {
-    return val <= c.crit ? 'crit' : val <= c.warn ? 'warn' : 'ok';
-  } else {
-    return val >= c.crit ? 'crit' : val >= c.warn ? 'warn' : 'ok';
-  }
+  if (alertId==='down') return s.status==='offline'  ? 'alert' : 'ok';
+  if (alertId==='deg')  return s.status==='degraded' ? 'alert' : 'ok';
+  const val = {lag:s.lag, uptime:s.uptime, stale:s.stale}[alertId];
+  if (val==null) return null;
+  const a = NODE_ALERTS.find(r=>r.id===alertId);
+  return a.type==='below' ? (val<=c.thresh?'alert':'ok') : (val>=c.thresh?'alert':'ok');
 }
 
-function currNetVal(chainId, rowId) {
-  const s = sim[chainId];
-  if (!s) return null;
-  const map = {
-    netStatus:        s.netState,
-    broadcastDown:    s.broadcastDown    ? 'Offline'     : 'Online',
-    broadcastDegraded:s.broadcastDegraded? 'Degraded'    : 'Online',
-    tps:              s.tps     != null  ? `${s.tps} TPS`              : null,
-    feeUSD:           s.feeUSD  != null  ? `$${s.feeUSD}`             : null,
-    ledgerEvents:     s.ledgerEvents != null ? `${s.ledgerEvents} ev/s` : null,
-    activeContracts:  s.activeContracts  != null ? s.activeContracts.toLocaleString() : null,
-    syncDomain:       s.syncDomainDeg   ? 'Degraded'    : 'Active',
-    l1DataLag:        s.l1DataLag != null ? `${s.l1DataLag} blk`       : null,
-    bridgeHealth:     s.bridgeDeg       ? 'Degraded'    : 'Operational',
-    sequencer:        s.sequencerDeg    ? 'Degraded'    : 'Active',
-  };
-  return map[rowId] ?? null;
+function netCurrVal(chainId, alertId) {
+  const s = sim[chainId]; if (!s) return null;
+  const m = { netStatus: s.netBad?'Degraded/Halted':'Healthy', broadcastDown: s.broadcastDown?'Offline':'Online',
+    broadcastDeg: s.broadcastDeg?'Degraded':'Online', tps:`${s.tps} TPS`, feeUSD:`$${s.feeUSD}`,
+    ledgerEvents:`${s.ledgerEvents} ev/s`, contracts:s.contracts?.toLocaleString(),
+    syncDomain:s.syncDomainDeg?'Degraded':'Active', l1Lag:`${s.l1Lag} blk`,
+    bridge:s.bridgeDeg?'Degraded':'Operational', sequencer:s.sequencerDeg?'Degraded':'Active' };
+  return m[alertId] ?? null;
 }
 
-function currNodeVal(nodeId, rowId) {
-  const s = sim[nodeId];
-  if (!s) return null;
-  const map = {
-    nodeDown: s.status,
-    nodeDeg:  s.status,
-    lag:      `${s.lag} blk`,
-    uptime:   `${s.uptime}%`,
-    stale:    `${s.stale} min`,
-  };
-  return map[rowId] ?? null;
+function nodeCurrVal(nodeId, alertId) {
+  const s = sim[nodeId]; if (!s) return null;
+  return { down:s.status, deg:s.status, lag:`${s.lag} blk`, uptime:`${s.uptime}%`, stale:`${s.stale} min` }[alertId] ?? null;
 }
 
-// ─── Cell HTML Builder ────────────────────────────────────────────────────────
-
+// ─── Cell Builder ─────────────────────────────────────────────────────────────
 function mkToggle(id, checked, onchange) {
-  return `<label class="toggle">
-    <input type="checkbox" id="${id}" ${checked ? 'checked' : ''} onchange="${onchange}">
-    <div class="toggle-track"></div>
-    <div class="toggle-thumb"></div>
-  </label>`;
+  return `<label class="toggle"><input type="checkbox" id="${id}" ${checked?'checked':''} onchange="${onchange}">
+    <div class="toggle-track"></div><div class="toggle-thumb"></div></label>`;
 }
 
-function mkCell(cellCfg, viol, statusText, threshHtml, currVal, extra) {
-  const enabled = cellCfg?.enabled;
-  const state = !enabled ? 'disabled' : (viol === 'crit' ? 'crit' : viol === 'warn' ? 'warn' : 'ok');
-  const sClass = !enabled ? 'status-off' : viol === 'crit' ? 'status-crit' : viol === 'warn' ? 'status-warn' : 'status-ok';
-  const sLabel = !enabled ? 'Disabled' : viol === 'crit' ? 'Critical' : viol === 'warn' ? 'Warning' : 'OK';
-  const cvCls  = !enabled ? '' : viol === 'crit' ? 'vcrit' : viol === 'warn' ? 'vwarn' : 'vok';
-  return `<td class="acell ${state}${extra ? ' '+extra : ''}">
-    <div class="acell-top">
-      ${statusText}
-      <span class="acell-status ${sClass}">${sLabel}</span>
+function mkCell(cellCfg, alertDef, viol, currVal, toggleCb, threshCb, isBcast) {
+  const on     = !!cellCfg?.enabled;
+  const state  = !on ? 'off' : viol === 'alert' ? 'alert' : 'ok';
+  const stLbl  = !on ? 'Off' : viol === 'alert' ? 'Alert' : 'OK';
+  const cvCls  = !on ? '' : viol === 'alert' ? 'alert' : 'ok';
+  const cellCls= `acell ${state==='alert'?'alert':''} ${!on?'off':''} ${isBcast?'bcast':''}`.trim();
+  const tid    = `t_${Math.random().toString(36).slice(2)}`;
+
+  let threshHtml = '';
+  if (alertDef.type !== 'bool') {
+    const dir = alertDef.type === 'above' ? '↑' : '↓';
+    const unit = alertDef.unit || '';
+    threshHtml = `<div class="thresh-row">
+      <span class="thresh-dir">${dir}</span>
+      <input class="thresh-input" type="number" step="any" value="${cellCfg?.thresh ?? ''}"
+        onchange="${threshCb}">
+      <span class="thresh-unit">${unit}</span>
+    </div>`;
+  }
+
+  return `<td class="${cellCls}">
+    <div class="row1">
+      ${mkToggle(tid, on, toggleCb)}
+      <span class="astatus ${state}">${stLbl}</span>
     </div>
     ${threshHtml}
-    ${currVal != null ? `<div class="curr-val">Now: <span class="${cvCls}">${currVal}</span></div>` : ''}
+    ${currVal != null ? `<div class="curr">Now: <span class="${cvCls}">${currVal}</span></div>` : ''}
   </td>`;
 }
 
-function numThreshHtml(warnId, critId, warnVal, critVal, unit, chainId, rowId, isNode, nodeId) {
-  const wCb = isNode
-    ? `updateNodeThresh('${nodeId}','${rowId}','warn',this.value)`
-    : `updateNetThresh('${chainId}','${rowId}','warn',this.value)`;
-  const cCb = isNode
-    ? `updateNodeThresh('${nodeId}','${rowId}','crit',this.value)`
-    : `updateNetThresh('${chainId}','${rowId}','crit',this.value)`;
-  return `
-    <div class="thresh-row">
-      <span class="thresh-lbl warn">WARN</span>
-      <input class="thresh-input" type="number" step="any" value="${warnVal ?? ''}" onchange="${wCb}">
-      <span class="thresh-unit">${unit}</span>
-    </div>
-    <div class="thresh-row">
-      <span class="thresh-lbl crit">CRIT</span>
-      <input class="thresh-input" type="number" step="any" value="${critVal ?? ''}" onchange="${cCb}">
-      <span class="thresh-unit">${unit}</span>
-    </div>`;
-}
-
 // ─── Render: Network Matrix ───────────────────────────────────────────────────
-
-function renderNetworkMatrix() {
-  let html = '<thead><tr>';
-  html += '<th class="row-lbl col-hdr" style="text-align:left"><span style="font-size:9px;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.4px">Alert Rule</span></th>';
+function renderNetMatrix() {
+  let h = '<thead><tr>';
+  h += '<th class="rlbl chdr" style="text-align:left"><span style="font-size:9px;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.4px">Alert Rule</span></th>';
   for (const c of CHAINS) {
-    html += `<th class="col-hdr" style="min-width:130px">
+    h += `<th class="chdr" style="min-width:110px">
       <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
-        <div class="chain-icon-sm" style="background:${c.iconBg};color:${c.iconColor}">${c.icon}</div>
-        <div class="col-hdr-name">${c.name}</div>
-        <div class="col-hdr-sub">${c.typeLabel}</div>
-      </div>
-    </th>`;
+        <div class="chdr-icon" style="background:${c.iconBg};color:${c.iconColor}">${c.icon}</div>
+        <div class="chdr-name">${c.name}</div>
+        <div class="chdr-sub">${c.typeLabel}</div>
+      </div></th>`;
   }
-  html += '</tr></thead><tbody>';
+  h += '</tr></thead><tbody>';
 
-  for (const row of NET_ROWS) {
-    html += '<tr>';
-    html += `<td class="row-lbl">
-      <div class="row-lbl-name">${row.name}</div>
-      <div class="row-lbl-desc">${row.desc}</div>
-    </td>`;
-
+  for (const a of NET_ALERTS) {
+    h += '<tr>';
+    h += `<td class="rlbl"><div class="rlbl-name">${a.name}</div><div class="rlbl-desc">${a.desc}</div></td>`;
     for (const c of CHAINS) {
-      if (!row.applies.includes(c.id)) {
-        html += '<td class="acell na">—</td>';
-        continue;
-      }
-      const cellCfg = cfg.network[c.id]?.[row.id] || {};
-      const viol    = evalNet(c.id, row.id);
-      const tid     = `net_${c.id}_${row.id}`;
-      const toggle  = mkToggle(tid, !!cellCfg.enabled, `toggleNet('${c.id}','${row.id}',this.checked)`);
-      const thresh  = row.type === 'numeric' && cellCfg.enabled
-        ? numThreshHtml('','', cellCfg.warn, cellCfg.crit, row.unit, c.id, row.id, false)
-        : '';
-      html += mkCell(cellCfg, viol, toggle, thresh, currNetVal(c.id, row.id));
+      if (!a.applies.includes(c.id)) { h += '<td class="acell na">—</td>'; continue; }
+      const cellCfg = cfg.network[c.id]?.[a.id] || {};
+      const viol    = evalNet(c.id, a.id);
+      const cv      = netCurrVal(c.id, a.id);
+      h += mkCell(cellCfg, a, viol, cv,
+        `toggleNet('${c.id}','${a.id}',this.checked)`,
+        `updateNetThresh('${c.id}','${a.id}',this.value)`,
+        false);
     }
-    html += '</tr>';
+    h += '</tr>';
   }
-  html += '</tbody>';
-  document.getElementById('networkMatrix').innerHTML = html;
+  h += '</tbody>';
+  document.getElementById('netMatrix').innerHTML = h;
 }
 
 // ─── Render: Node Matrix ──────────────────────────────────────────────────────
-
 function renderNodeMatrix() {
   const cols = [];
   for (const c of CHAINS) {
-    cols.push({ chain: c, node: c.broadcastNode, isBroadcast: true });
-    for (const n of c.readNodes) cols.push({ chain: c, node: n, isBroadcast: false });
+    cols.push({ chain:c, node:c.broadcastNode, isBcast:true });
+    for (const n of c.readNodes) cols.push({ chain:c, node:n, isBcast:false });
   }
 
-  let html = '<thead>';
-
-  // Chain group row
-  html += '<tr><th class="row-lbl col-hdr" rowspan="2" style="text-align:left;vertical-align:middle"><span style="font-size:9px;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.4px">Alert Rule</span></th>';
+  let h = '<thead><tr>';
+  h += '<th class="rlbl chdr" rowspan="2" style="text-align:left;vertical-align:middle"><span style="font-size:9px;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.4px">Alert Rule</span></th>';
   for (const c of CHAINS) {
-    const span = 1 + c.readNodes.length;
-    html += `<th colspan="${span}" class="group-hdr">
+    h += `<th colspan="${1+c.readNodes.length}" class="grphdr">
       <span style="display:inline-flex;align-items:center;gap:5px">
-        <span style="width:14px;height:14px;border-radius:50%;background:${c.iconBg};color:${c.iconColor};display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;font-family:monospace">${c.icon}</span>
-        ${c.name}
-      </span>
-    </th>`;
+        <span style="width:13px;height:13px;border-radius:50%;background:${c.iconBg};color:${c.iconColor};display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;font-family:monospace">${c.icon}</span>
+        ${c.name}</span></th>`;
   }
-  html += '</tr><tr>';
-  for (const { node, isBroadcast } of cols) {
-    const shortId = node.id.replace('FNDB-', '');
-    html += `<th class="col-hdr ${isBroadcast ? 'bcast-col-hdr' : ''}" style="min-width:115px">
-      <div style="font-size:9px;font-weight:600;color:${isBroadcast ? 'var(--amber)' : 'var(--text)'};font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px" title="${node.id}">${shortId}</div>
+  h += '</tr><tr>';
+  for (const { node, isBcast } of cols) {
+    const short = node.id.replace('FNDB-','');
+    h += `<th class="chdr ${isBcast?'bcast':''}" style="min-width:100px;${isBcast?'background:rgba(227,162,74,0.06)':''}">
+      <div style="font-size:9px;font-weight:600;color:${isBcast?'var(--amber)':'var(--text)'};font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px" title="${node.id}">${short}</div>
       <div style="font-size:8px;color:var(--text-dim);margin-top:1px">${node.type}</div>
-      ${isBroadcast ? '<div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:var(--amber);margin-top:1px">Broadcast</div>' : ''}
+      ${isBcast?'<div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:var(--amber);margin-top:1px">Broadcast</div>':''}
     </th>`;
   }
-  html += '</tr></thead><tbody>';
+  h += '</tr></thead><tbody>';
 
-  for (const row of NODE_ROWS) {
-    html += '<tr>';
-    html += `<td class="row-lbl">
-      <div class="row-lbl-name">${row.name}</div>
-      <div class="row-lbl-desc">${row.desc}</div>
-    </td>`;
-
-    for (const { chain, node, isBroadcast } of cols) {
-      const cellCfg = cfg.nodes[node.id]?.[row.id] || {};
-      const viol    = evalNode(node.id, row.id);
-      const tid     = `node_${node.id}_${row.id}`;
-      const toggle  = mkToggle(tid, !!cellCfg.enabled, `toggleNode('${node.id}','${row.id}',this.checked)`);
-      const unit    = row.id === 'lag' && chain.isEnterprise ? 'events' : (row.unit || '');
-      const thresh  = row.type === 'numeric' && cellCfg.enabled
-        ? numThreshHtml('','', cellCfg.warn, cellCfg.crit, unit, null, row.id, true, node.id)
-        : '';
-      html += mkCell(cellCfg, viol, toggle, thresh, currNodeVal(node.id, row.id), isBroadcast ? 'bcast-acell' : '');
+  for (const a of NODE_ALERTS) {
+    h += '<tr>';
+    h += `<td class="rlbl"><div class="rlbl-name">${a.name}</div><div class="rlbl-desc">${a.desc}</div></td>`;
+    for (const { chain, node, isBcast } of cols) {
+      const cellCfg = cfg.nodes[node.id]?.[a.id] || {};
+      const viol    = evalNode(node.id, a.id);
+      const cv      = nodeCurrVal(node.id, a.id);
+      const unit    = a.id==='lag' && chain.isEnterprise ? 'events' : a.unit;
+      const aWithUnit = { ...a, unit };
+      h += mkCell(cellCfg, aWithUnit, viol, cv,
+        `toggleNode('${node.id}','${a.id}',this.checked)`,
+        `updateNodeThresh('${node.id}','${a.id}',this.value)`,
+        isBcast);
     }
-    html += '</tr>';
+    h += '</tr>';
   }
-  html += '</tbody>';
-  document.getElementById('nodeMatrix').innerHTML = html;
+  h += '</tbody>';
+  document.getElementById('nodeMatrix').innerHTML = h;
 }
 
-// ─── Render: Violations + Summary ────────────────────────────────────────────
-
+// ─── Violations + Summary ─────────────────────────────────────────────────────
 function renderViolations() {
   const viols = [];
-
   for (const c of CHAINS) {
-    for (const row of NET_ROWS) {
-      if (!row.applies.includes(c.id)) continue;
-      const v = evalNet(c.id, row.id);
-      if (v && v !== 'ok') {
-        const cc = cfg.network[c.id]?.[row.id];
-        viols.push({
-          sev: v,
-          msg: `${c.name} — ${row.name}`,
-          val: currNetVal(c.id, row.id),
-          thresh: row.type === 'numeric' ? `threshold ${v === 'crit' ? cc.crit : cc.warn} ${row.unit}` : null,
-        });
+    for (const a of NET_ALERTS) {
+      if (!a.applies.includes(c.id)) continue;
+      if (evalNet(c.id, a.id) === 'alert') {
+        const cc = cfg.network[c.id]?.[a.id];
+        viols.push({ msg:`${c.name} — ${a.name}`, val:netCurrVal(c.id,a.id),
+          thresh: a.type!=='bool' ? `${a.type==='above'?'max':'min'} ${cc.thresh} ${a.unit}` : null });
       }
     }
   }
   for (const c of CHAINS) {
-    for (const node of [c.broadcastNode, ...c.readNodes]) {
-      for (const row of NODE_ROWS) {
-        const v = evalNode(node.id, row.id);
-        if (v && v !== 'ok') {
-          const nc = cfg.nodes[node.id]?.[row.id];
-          viols.push({
-            sev: v,
-            msg: `${node.id} — ${row.name}`,
-            val: currNodeVal(node.id, row.id),
-            thresh: row.type === 'numeric' ? `threshold ${v === 'crit' ? nc.crit : nc.warn} ${row.unit}` : null,
-          });
+    for (const n of [c.broadcastNode,...c.readNodes]) {
+      for (const a of NODE_ALERTS) {
+        if (evalNode(n.id, a.id) === 'alert') {
+          const nc = cfg.nodes[n.id]?.[a.id];
+          viols.push({ msg:`${n.id} — ${a.name}`, val:nodeCurrVal(n.id,a.id),
+            thresh: a.type!=='bool' ? `${a.type==='above'?'max':'min'} ${nc.thresh} ${a.unit}` : null });
         }
       }
     }
   }
 
-  viols.sort((a, b) => (a.sev === 'crit' && b.sev !== 'crit') ? -1 : (b.sev === 'crit' && a.sev !== 'crit') ? 1 : 0);
-
-  const crits = viols.filter(v => v.sev === 'crit').length;
-  const warns = viols.filter(v => v.sev === 'warn').length;
-  const totalRules = countEnabled();
+  let enabled = 0;
+  for (const c of CHAINS) {
+    for (const a of NET_ALERTS) { if (a.applies.includes(c.id) && cfg.network[c.id]?.[a.id]?.enabled) enabled++; }
+    for (const n of [c.broadcastNode,...c.readNodes]) {
+      for (const a of NODE_ALERTS) { if (cfg.nodes[n.id]?.[a.id]?.enabled) enabled++; }
+    }
+  }
 
   document.getElementById('summaryBar').innerHTML = `
     <div class="stat-pill">
-      <div class="sdot sdot-red"></div>
-      <span class="num" style="color:var(--red)">${crits}</span>
-      <span class="lbl">Critical</span>
-    </div>
-    <div class="stat-pill">
-      <div class="sdot sdot-yellow"></div>
-      <span class="num" style="color:var(--yellow)">${warns}</span>
-      <span class="lbl">Warnings</span>
+      <div class="dot dot-red"></div>
+      <span class="num" style="color:var(--red)">${viols.length}</span>
+      <span class="lbl">Active Alerts</span>
     </div>
     <div class="bar-div"></div>
     <div class="stat-pill">
-      <span class="num">${totalRules}</span>
+      <div class="dot dot-green"></div>
+      <span class="num">${enabled}</span>
       <span class="lbl">Rules Enabled</span>
     </div>
     <div class="stat-pill" style="margin-left:auto">
-      <span style="color:var(--text-dim);font-size:11px">4 chains · 14 nodes · ${NET_ROWS.length + NODE_ROWS.length} alert types</span>
+      <span style="color:var(--text-dim);font-size:11px">4 chains · 14 nodes</span>
     </div>`;
 
   document.getElementById('violCount').textContent = viols.length ? `${viols.length} active` : 'none';
-
-  const body = document.getElementById('violationsBody');
+  const body = document.getElementById('violsBody');
   if (!viols.length) {
-    body.innerHTML = `<div class="no-violations"><span class="vok">✓</span> No active violations — all monitored metrics within configured thresholds</div>`;
+    body.innerHTML = `<div class="no-viols"><span style="color:var(--green)">✓</span> No active alerts — all metrics within configured thresholds</div>`;
   } else {
     body.innerHTML = viols.map(v => `
       <div class="viol-row">
-        <span class="viol-sev ${v.sev}">${v.sev === 'crit' ? 'Critical' : 'Warning'}</span>
+        <span class="viol-tag">Alert</span>
         <span class="viol-msg">${v.msg}</span>
-        <span class="viol-val">${v.val || ''}</span>
+        <span class="viol-val">${v.val||''}</span>
         ${v.thresh ? `<span class="viol-thresh">${v.thresh}</span>` : ''}
       </div>`).join('');
   }
 }
 
-function countEnabled() {
-  let n = 0;
-  for (const c of CHAINS) {
-    for (const row of NET_ROWS) {
-      if (!row.applies.includes(c.id)) continue;
-      if (cfg.network[c.id]?.[row.id]?.enabled) n++;
-    }
-    for (const node of [c.broadcastNode, ...c.readNodes]) {
-      for (const row of NODE_ROWS) {
-        if (cfg.nodes[node.id]?.[row.id]?.enabled) n++;
-      }
-    }
-  }
-  return n;
-}
-
-// ─── Toggle + Threshold Update Handlers ──────────────────────────────────────
-
-function toggleNet(chainId, rowId, checked) {
-  cfg.network[chainId] = cfg.network[chainId] || {};
-  cfg.network[chainId][rowId] = cfg.network[chainId][rowId] || {};
-  cfg.network[chainId][rowId].enabled = checked;
+// ─── Handlers ────────────────────────────────────────────────────────────────
+function toggleNet(chainId, alertId, checked) {
+  (cfg.network[chainId] = cfg.network[chainId]||{})[alertId] = cfg.network[chainId][alertId]||{};
+  cfg.network[chainId][alertId].enabled = checked;
   render();
 }
-
-function toggleNode(nodeId, rowId, checked) {
-  cfg.nodes[nodeId] = cfg.nodes[nodeId] || {};
-  cfg.nodes[nodeId][rowId] = cfg.nodes[nodeId][rowId] || {};
-  cfg.nodes[nodeId][rowId].enabled = checked;
+function toggleNode(nodeId, alertId, checked) {
+  (cfg.nodes[nodeId] = cfg.nodes[nodeId]||{})[alertId] = cfg.nodes[nodeId][alertId]||{};
+  cfg.nodes[nodeId][alertId].enabled = checked;
   render();
 }
-
-function updateNetThresh(chainId, rowId, level, val) {
-  cfg.network[chainId] = cfg.network[chainId] || {};
-  cfg.network[chainId][rowId] = cfg.network[chainId][rowId] || {};
-  cfg.network[chainId][rowId][level] = parseFloat(val);
+function updateNetThresh(chainId, alertId, val) {
+  (cfg.network[chainId] = cfg.network[chainId]||{})[alertId] = cfg.network[chainId][alertId]||{};
+  cfg.network[chainId][alertId].thresh = parseFloat(val);
+  renderViolations();
+}
+function updateNodeThresh(nodeId, alertId, val) {
+  (cfg.nodes[nodeId] = cfg.nodes[nodeId]||{})[alertId] = cfg.nodes[nodeId][alertId]||{};
+  cfg.nodes[nodeId][alertId].thresh = parseFloat(val);
   renderViolations();
 }
 
-function updateNodeThresh(nodeId, rowId, level, val) {
-  cfg.nodes[nodeId] = cfg.nodes[nodeId] || {};
-  cfg.nodes[nodeId][rowId] = cfg.nodes[nodeId][rowId] || {};
-  cfg.nodes[nodeId][rowId][level] = parseFloat(val);
-  renderViolations();
-}
-
-// ─── Main Render ──────────────────────────────────────────────────────────────
-
-function render() {
-  renderViolations();
-  renderNetworkMatrix();
-  renderNodeMatrix();
-}
+function render() { renderViolations(); renderNetMatrix(); renderNodeMatrix(); }
 
 simulate();
 </script>
