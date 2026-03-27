@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Node and Network Operations Center — FNDB</title>
+  <title>Node Operations Center — FNDB</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -383,28 +383,9 @@
     /* ── Node Monitoring Table ── */
     .node-body { padding: 6px 12px 8px; overflow-x: auto; }
 
-    /* ── Card body: side-by-side layout ── */
-    .card-body {
-      display: flex;
-      min-height: 0;
-    }
-
-    .net-panel {
-      width: 270px;
-      flex-shrink: 0;
-      border-right: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    .node-panel {
-      flex: 1;
-      min-width: 0;
-      overflow-x: auto;
-    }
-
     .node-grid {
       display: grid;
-      grid-template-columns: 62px repeat(var(--ncols), minmax(100px, 1fr));
+      grid-template-columns: 70px repeat(var(--ncols), minmax(130px, 1fr));
       min-width: 0;
     }
 
@@ -488,8 +469,7 @@
 <header>
   <div class="logo">
     <div class="logo-mark">⬡</div>
-    Node and Network Operations Center
-    <span class="bank-name">— First National Digital Bank</span>
+    Node Operations Center
   </div>
   <div class="header-right">
     <span class="refresh-time" id="refreshLabel">Updated just now</span>
@@ -1036,22 +1016,17 @@ function renderCard(chain) {
         </div>
       </div>
 
-      <div class="card-body">
-        <div class="net-panel">
-          <div class="sec-header">
-            <span class="sec-title">Network Health</span>
-            <span class="sec-meta">${chain.typeLabel}</span>
-          </div>
-          ${networkHealthHtml}
-        </div>
-        <div class="node-panel">
-          <div class="sec-header">
-            <span class="sec-title">Institution Node Monitoring</span>
-            <span class="sec-meta">${totalNodes} nodes · 1 broadcast · ${chain.readNodes.length} read-only</span>
-          </div>
-          ${renderNodeMonitoring(chain, cs)}
-        </div>
+      <div class="sec-header">
+        <span class="sec-title">Network Health</span>
+        <span class="sec-meta">${chain.typeLabel}</span>
       </div>
+      ${networkHealthHtml}
+
+      <div class="sec-header">
+        <span class="sec-title">Institution Node Monitoring</span>
+        <span class="sec-meta">${totalNodes} nodes · 1 broadcast · ${chain.readNodes.length} read-only</span>
+      </div>
+      ${renderNodeMonitoring(chain, cs)}
     </div>`;
 }
 
