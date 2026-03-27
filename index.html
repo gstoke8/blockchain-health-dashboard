@@ -15,8 +15,8 @@
       --border:    #30363d;
       --border-2:  #3d444d;
       --text:      #e6edf3;
-      --text-muted:#8b949e;
-      --text-dim:  #484f58;
+      --text-muted:#9ca3af;
+      --text-dim:  #6b7280;
 
       --green:        #3fb950;
       --green-bg:     rgba(63,185,80,0.08);
@@ -455,10 +455,14 @@
     .useg { width: 3px; height: 8px; border-radius: 1px; }
 
     /* Chain icon colors */
-    .icon-eth    { background: rgba(98,126,234,0.12);  color: #627eea; }
-    .icon-sol    { background: rgba(153,69,255,0.12);  color: #9945ff; }
-    .icon-canton { background: rgba(74,127,212,0.12);  color: #4a7fd4; }
-    .icon-base   { background: rgba(0,102,255,0.12);   color: #4d88ff; }
+    .icon-eth     { background: rgba(98,126,234,0.12);  color: #627eea; }
+    .icon-sol     { background: rgba(153,69,255,0.12);  color: #9945ff; }
+    .icon-canton  { background: rgba(74,127,212,0.12);  color: #4a7fd4; }
+    .icon-polygon { background: rgba(130,71,229,0.12);  color: #8247e5; }
+    .icon-avax    { background: rgba(232,65,66,0.12);   color: #e84142; }
+
+    /* Last card spans full width when it's alone in its row */
+    .grid > .chain-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
 
     .spin { animation: spin 0.8s linear infinite; display: inline-block; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -499,11 +503,11 @@ const CHAINS = [
       { name: 'Others',   pct: 53 },
     ],
     nakamoto: 3, decentral: 'medium',
-    broadcastNode: { id: 'FNDB-ETH-VAL-01',  type: 'Validator Node', client: 'Geth v1.13.14',  network: 'Mainnet (chainId: 1)' },
+    broadcastNode: { id: 'DTCC-ETH-VAL-01',  type: 'Validator Node', client: 'Geth v1.13.14',  network: 'Mainnet (chainId: 1)' },
     readNodes: [
-      { id: 'FNDB-ETH-RO-01', type: 'Read-Only', client: 'Geth v1.13.14',  network: 'Mainnet (chainId: 1)' },
-      { id: 'FNDB-ETH-RO-02', type: 'Read-Only', client: 'Reth v0.2.0',    network: 'Mainnet (chainId: 1)' },
-      { id: 'FNDB-ETH-RO-03', type: 'Read-Only', client: 'Geth v1.13.12',  network: 'Mainnet (chainId: 1)' },
+      { id: 'DTCC-ETH-RO-01', type: 'Read-Only', client: 'Geth v1.13.14',  network: 'Mainnet (chainId: 1)' },
+      { id: 'DTCC-ETH-RO-02', type: 'Read-Only', client: 'Reth v0.2.0',    network: 'Mainnet (chainId: 1)' },
+      { id: 'DTCC-ETH-RO-03', type: 'Read-Only', client: 'Geth v1.13.12',  network: 'Mainnet (chainId: 1)' },
     ],
   },
   {
@@ -518,11 +522,11 @@ const CHAINS = [
       { name: 'Others',      pct: 59 },
     ],
     nakamoto: 5, decentral: 'medium',
-    broadcastNode: { id: 'FNDB-SOL-VAL-01',  type: 'Validator Node', client: 'agave 2.0.21', network: 'mainnet-beta' },
+    broadcastNode: { id: 'DTCC-SOL-VAL-01',  type: 'Validator Node', client: 'agave 2.0.21', network: 'mainnet-beta' },
     readNodes: [
-      { id: 'FNDB-SOL-RO-01', type: 'Read-Only', client: 'agave 2.0.21', network: 'mainnet-beta' },
-      { id: 'FNDB-SOL-RO-02', type: 'Read-Only', client: 'agave 2.0.18', network: 'mainnet-beta' },
-      { id: 'FNDB-SOL-RO-03', type: 'Read-Only', client: 'agave 2.0.21', network: 'mainnet-beta' },
+      { id: 'DTCC-SOL-RO-01', type: 'Read-Only', client: 'agave 2.0.21', network: 'mainnet-beta' },
+      { id: 'DTCC-SOL-RO-02', type: 'Read-Only', client: 'agave 2.0.18', network: 'mainnet-beta' },
+      { id: 'DTCC-SOL-RO-03', type: 'Read-Only', client: 'agave 2.0.21', network: 'mainnet-beta' },
     ],
   },
   {
@@ -533,25 +537,49 @@ const CHAINS = [
     participantRange: [18, 24],
     ledgerEventsRange: [120, 380],
     activeContractsRange: [8400, 12600],
-    syncDomainNames: ['fndb-sync-domain-1', 'fndb-sync-domain-2'],
-    broadcastNode: { id: 'FNDB-CANTON-PART-01', type: 'Participant',  client: 'Canton 2.9.4', network: 'fndb-sync-domain-1' },
+    syncDomainNames: ['dtcc-sync-domain-1', 'dtcc-sync-domain-2'],
+    broadcastNode: { id: 'DTCC-CANTON-PART-01', type: 'Participant',  client: 'Canton 2.9.4', network: 'dtcc-sync-domain-1' },
     readNodes: [
-      { id: 'FNDB-CANTON-RO-01', type: 'Observer', client: 'Canton 2.9.4', network: 'fndb-sync-domain-1' },
-      { id: 'FNDB-CANTON-RO-02', type: 'Observer', client: 'Canton 2.9.2', network: 'fndb-sync-domain-1' },
+      { id: 'DTCC-CANTON-RO-01', type: 'Observer', client: 'Canton 2.9.4', network: 'dtcc-sync-domain-1' },
+      { id: 'DTCC-CANTON-RO-02', type: 'Observer', client: 'Canton 2.9.2', network: 'dtcc-sync-domain-1' },
     ],
   },
   {
-    id: 'base', name: 'Base', ticker: 'ETH', icon: 'B',
-    iconClass: 'icon-base', type: 'base', typeLabel: 'OP Stack L2',
-    isL2: true,
-    tpsRange: [15, 85],
-    feeRange: { min: 0.0002, max: 0.002, native: 'gwei', nativeVal: () => (Math.random()*0.05+0.01).toFixed(4) },
-    faultProofWindow: '7 days', sequencer: 'Coinbase (centralized)', l1Chain: 'Ethereum Mainnet',
-    broadcastNode: { id: 'FNDB-BASE-NODE-01', type: 'Writer Node', client: 'op-geth v1.101315.2', network: 'Base (chainId: 8453)' },
+    id: 'polygon', name: 'Polygon', ticker: 'MATIC', icon: '⬡',
+    iconClass: 'icon-polygon', type: 'l1', typeLabel: 'PoS · Sidechain',
+    tpsRange: [200, 700],
+    feeRange: { min: 0.001, max: 0.05, native: 'gwei', nativeVal: () => (Math.random()*28+2).toFixed(1) },
+    validators: [
+      { name: 'Infra.AI',  pct: 12 },
+      { name: 'Chorus1',   pct:  9 },
+      { name: 'Staked',    pct:  8 },
+      { name: 'Others',    pct: 71 },
+    ],
+    nakamoto: 7, decentral: 'medium',
+    broadcastNode: { id: 'DTCC-POLY-VAL-01', type: 'Validator Node', client: 'bor v1.3.3', network: 'Mainnet (chainId: 137)' },
     readNodes: [
-      { id: 'FNDB-BASE-RO-01', type: 'Read-Only', client: 'op-geth v1.101315.2', network: 'Base (chainId: 8453)' },
-      { id: 'FNDB-BASE-RO-02', type: 'Read-Only', client: 'op-geth v1.101315.1', network: 'Base (chainId: 8453)' },
-      { id: 'FNDB-BASE-RO-03', type: 'Read-Only', client: 'op-geth v1.101315.2', network: 'Base (chainId: 8453)' },
+      { id: 'DTCC-POLY-RO-01', type: 'Read-Only', client: 'bor v1.3.3', network: 'Mainnet (chainId: 137)' },
+      { id: 'DTCC-POLY-RO-02', type: 'Read-Only', client: 'bor v1.3.3', network: 'Mainnet (chainId: 137)' },
+      { id: 'DTCC-POLY-RO-03', type: 'Read-Only', client: 'bor v1.3.2', network: 'Mainnet (chainId: 137)' },
+    ],
+  },
+  {
+    id: 'avax', name: 'Avalanche', ticker: 'AVAX', icon: 'A',
+    iconClass: 'icon-avax', type: 'l1', typeLabel: 'L1 · Avalanche Consensus',
+    tpsRange: [1000, 4500],
+    feeRange: { min: 0.0008, max: 0.005, native: 'nAVAX', nativeVal: () => (Math.random()*12+4).toFixed(0) },
+    validators: [
+      { name: 'Ava Labs',  pct:  8 },
+      { name: 'Ankr',      pct:  5 },
+      { name: 'Figment',   pct:  4 },
+      { name: 'Others',    pct: 83 },
+    ],
+    nakamoto: 26, decentral: 'low',
+    broadcastNode: { id: 'DTCC-AVAX-VAL-01', type: 'Validator Node', client: 'AvalancheGo v1.11.3', network: 'Mainnet (networkID: 1)' },
+    readNodes: [
+      { id: 'DTCC-AVAX-RO-01', type: 'Read-Only', client: 'AvalancheGo v1.11.3', network: 'Mainnet (networkID: 1)' },
+      { id: 'DTCC-AVAX-RO-02', type: 'Read-Only', client: 'AvalancheGo v1.11.3', network: 'Mainnet (networkID: 1)' },
+      { id: 'DTCC-AVAX-RO-03', type: 'Read-Only', client: 'AvalancheGo v1.11.2', network: 'Mainnet (networkID: 1)' },
     ],
   },
 ];
@@ -699,7 +727,7 @@ function renderSummary() {
       <span class="lbl">/ ${CHAINS.length} Networks Healthy</span>
     </div>
     <div class="stat-pill" style="margin-left:auto">
-      <span style="color:var(--text-dim);font-size:11px">4 chains · ${total} institutional nodes</span>
+      <span style="color:var(--text-dim);font-size:11px">${CHAINS.length} chains · ${total} nodes</span>
     </div>
   `;
 }
@@ -1018,13 +1046,13 @@ function renderCard(chain) {
       </div>
 
       <div class="sec-header">
-        <span class="sec-title">Network Health</span>
+        <span class="sec-title">Chain Health</span>
         <span class="sec-meta">${chain.typeLabel}</span>
       </div>
       ${networkHealthHtml}
 
       <div class="sec-header">
-        <span class="sec-title">Institution Node Monitoring</span>
+        <span class="sec-title">Node Health</span>
         <span class="sec-meta">${totalNodes} nodes · 1 broadcast · ${chain.readNodes.length} read-only</span>
       </div>
       ${renderNodeMonitoring(chain, cs)}
