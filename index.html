@@ -43,9 +43,9 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'IBM Plex Sans', system-ui, sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       min-height: 100vh;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     .mono { font-family: 'IBM Plex Mono', 'Consolas', monospace; }
@@ -54,8 +54,8 @@
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-      height: 52px;
+      padding: 0 20px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -133,7 +133,7 @@
 
     /* ── Summary Bar ── */
     .summary-bar {
-      padding: 11px 24px;
+      padding: 6px 20px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -143,15 +143,15 @@
     }
 
     .stat-pill {
-      display: flex; align-items: center; gap: 6px;
+      display: flex; align-items: center; gap: 5px;
       background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: 5px;
-      padding: 5px 12px;
-      font-size: 12px;
+      padding: 3px 10px;
+      font-size: 11px;
     }
     .stat-pill .num {
-      font-weight: 700; font-size: 15px;
+      font-weight: 700; font-size: 13px;
       font-family: 'IBM Plex Mono', monospace;
     }
     .stat-pill .lbl { color: var(--text-muted); }
@@ -172,10 +172,10 @@
 
     /* ── Grid ── */
     .grid {
-      padding: 20px 24px 48px;
+      padding: 10px 16px 16px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(820px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
     }
 
     /* ── Chain Card ── */
@@ -190,26 +190,26 @@
 
     /* Card Header */
     .card-header {
-      padding: 12px 16px;
+      padding: 7px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid var(--border);
     }
 
-    .chain-identity { display: flex; align-items: center; gap: 10px; }
+    .chain-identity { display: flex; align-items: center; gap: 8px; }
 
     .chain-icon {
-      width: 36px; height: 36px;
+      width: 28px; height: 28px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 17px; font-weight: 700; flex-shrink: 0;
+      font-size: 13px; font-weight: 700; flex-shrink: 0;
       font-family: 'IBM Plex Mono', monospace;
     }
 
     .chain-name-row {
-      display: flex; align-items: center; gap: 7px;
-      font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 700;
     }
 
     .chain-ticker {
@@ -241,7 +241,7 @@
 
     /* Section headers */
     .sec-header {
-      padding: 5px 16px;
+      padding: 3px 12px;
       background: var(--surface-2);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -249,25 +249,25 @@
     }
 
     .sec-title {
-      font-size: 9px; font-weight: 700;
+      font-size: 8px; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.8px;
       color: var(--text-dim);
     }
 
     .sec-meta {
-      font-size: 10px; color: var(--text-dim);
+      font-size: 9px; color: var(--text-dim);
       font-family: 'IBM Plex Mono', monospace;
     }
 
     /* ── Network Health ── */
-    .net-body { padding: 14px 16px; }
+    .net-body { padding: 8px 12px; }
 
     .net-metrics-row {
-      display: flex; gap: 0; margin-bottom: 14px;
+      display: flex; gap: 0; margin-bottom: 8px;
     }
 
     .net-mblock {
-      flex: 1; padding: 8px 12px;
+      flex: 1; padding: 5px 10px;
       background: var(--surface-2); border: 1px solid var(--border);
     }
     .net-mblock:first-child { border-radius: 5px 0 0 5px; }
@@ -275,33 +275,33 @@
     .net-mblock + .net-mblock { border-left: none; }
 
     .nmb-label {
-      font-size: 9px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.4px; color: var(--text-dim); margin-bottom: 5px;
+      font-size: 8px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.4px; color: var(--text-dim); margin-bottom: 3px;
     }
 
     .net-status-row { display: flex; align-items: center; gap: 6px; }
 
     .net-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
-    .net-status-text { font-size: 13px; font-weight: 600; }
-    .net-status-detail { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+    .net-status-text { font-size: 12px; font-weight: 600; }
+    .net-status-detail { font-size: 9px; color: var(--text-dim); margin-top: 1px; }
 
     .nbig {
-      font-size: 22px; font-weight: 700; letter-spacing: -0.5px;
+      font-size: 18px; font-weight: 700; letter-spacing: -0.5px;
       font-family: 'IBM Plex Mono', monospace;
     }
-    .nunit { font-size: 11px; color: var(--text-muted); margin-left: 3px; }
-    .nsub  { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+    .nunit { font-size: 10px; color: var(--text-muted); margin-left: 2px; }
+    .nsub  { font-size: 9px; color: var(--text-muted); margin-top: 1px; }
 
     /* Validators (L1) */
-    .val-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .val-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
     .val-panel-head {
       display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 7px;
+      margin-bottom: 4px;
     }
     .val-panel-title {
-      font-size: 9px; font-weight: 600; text-transform: uppercase;
+      font-size: 8px; font-weight: 600; text-transform: uppercase;
       letter-spacing: 0.5px; color: var(--text-dim);
     }
 
@@ -313,44 +313,44 @@
     .risk-medium { background: var(--yellow-bg); color: var(--yellow); }
     .risk-high   { background: var(--red-bg);    color: var(--red); }
 
-    .val-bars { display: flex; flex-direction: column; gap: 4px; }
+    .val-bars { display: flex; flex-direction: column; gap: 3px; }
 
-    .vbar-row { display: flex; align-items: center; gap: 6px; }
-    .vbar-name { width: 80px; color: var(--text-muted); font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .vbar-track { flex: 1; height: 4px; background: var(--surface-3); border-radius: 2px; overflow: hidden; }
+    .vbar-row { display: flex; align-items: center; gap: 5px; }
+    .vbar-name { width: 68px; color: var(--text-muted); font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .vbar-track { flex: 1; height: 3px; background: var(--surface-3); border-radius: 2px; overflow: hidden; }
     .vbar-fill  { height: 100%; border-radius: 2px; }
-    .vbar-pct   { width: 28px; text-align: right; font-size: 10px; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; }
+    .vbar-pct   { width: 26px; text-align: right; font-size: 9px; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; }
 
-    .nakamoto-line { font-size: 10px; color: var(--text-dim); margin-top: 5px; }
+    .nakamoto-line { font-size: 9px; color: var(--text-dim); margin-top: 3px; }
 
     /* Info note */
     .info-note {
-      display: flex; align-items: flex-start; gap: 7px;
-      padding: 8px 10px; border-radius: 5px;
-      font-size: 11px; color: var(--text-muted); line-height: 1.5;
-      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 6px;
+      padding: 4px 8px; border-radius: 4px;
+      font-size: 9px; color: var(--text-muted); line-height: 1.4;
+      margin-bottom: 7px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .info-note.enterprise { background: rgba(139,92,246,0.05); border: 1px solid rgba(139,92,246,0.15); }
     .info-note.l2         { background: rgba(56,139,253,0.05);  border: 1px solid rgba(56,139,253,0.15); }
-    .info-note-icon { flex-shrink: 0; font-size: 12px; }
+    .info-note-icon { flex-shrink: 0; font-size: 10px; }
 
     /* Special metrics grid (Canton / Base) */
     .spec-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 8px; margin-bottom: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px; margin-bottom: 7px;
     }
 
     .spec-card {
       background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: 5px; padding: 8px 10px;
+      border-radius: 4px; padding: 5px 8px;
     }
     .spec-lbl {
-      font-size: 9px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.4px; color: var(--text-dim); margin-bottom: 3px;
+      font-size: 8px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.4px; color: var(--text-dim); margin-bottom: 2px;
     }
     .spec-val {
-      font-size: 14px; font-weight: 700;
+      font-size: 12px; font-weight: 700;
       font-family: 'IBM Plex Mono', monospace;
     }
     .spec-val.ok     { color: var(--green); }
@@ -358,12 +358,12 @@
     .spec-val.error  { color: var(--red); }
     .spec-val.amber  { color: var(--amber); }
     .spec-val.normal { color: var(--text); }
-    .spec-sub { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+    .spec-sub { font-size: 8px; color: var(--text-muted); margin-top: 1px; }
 
     /* Domain pills (Canton) */
-    .domain-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+    .domain-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
     .dpill {
-      font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 10px;
+      font-size: 9px; font-weight: 500; padding: 1px 7px; border-radius: 10px;
       font-family: 'IBM Plex Mono', monospace;
     }
     .dpill.active   { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
@@ -372,20 +372,20 @@
     /* Sequencer row (Base) */
     .seq-row {
       display: flex; align-items: center; gap: 8px;
-      padding: 7px 10px; margin-bottom: 10px;
-      background: var(--surface-2); border: 1px solid var(--border); border-radius: 5px;
-      font-size: 11px;
+      padding: 4px 8px; margin-bottom: 7px;
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px;
+      font-size: 10px;
     }
-    .seq-key { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-dim); }
+    .seq-key { font-size: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-dim); }
     .seq-val { color: var(--text); font-weight: 600; }
-    .seq-warning { margin-left: auto; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; padding: 2px 6px; border-radius: 3px; background: var(--yellow-bg); color: var(--yellow); }
+    .seq-warning { margin-left: auto; font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; padding: 1px 5px; border-radius: 3px; background: var(--yellow-bg); color: var(--yellow); }
 
     /* ── Node Monitoring Table ── */
-    .node-body { padding: 12px 16px; overflow-x: auto; }
+    .node-body { padding: 6px 12px 8px; overflow-x: auto; }
 
     .node-grid {
       display: grid;
-      grid-template-columns: 80px repeat(var(--ncols), minmax(170px, 1fr));
+      grid-template-columns: 70px repeat(var(--ncols), minmax(130px, 1fr));
       min-width: 0;
     }
 
@@ -395,47 +395,47 @@
     /* Label column cells */
     .ncell-lbl {
       display: flex; align-items: center;
-      padding: 5px 0 5px 0;
-      font-size: 9px; font-weight: 600; text-transform: uppercase;
+      padding: 3px 0;
+      font-size: 8px; font-weight: 600; text-transform: uppercase;
       letter-spacing: 0.4px; color: var(--text-dim);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
     }
 
     /* Header row label */
-    .ncell-lbl.hdr { align-items: flex-end; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    .ncell-lbl.hdr { align-items: flex-end; padding-bottom: 5px; border-bottom: 2px solid var(--border); }
 
     /* Node column headers */
     .ncell-hdr {
-      padding: 0 10px 8px;
+      padding: 0 8px 5px;
       border-bottom: 2px solid var(--border);
     }
     .ncell-hdr.is-bcast {
       border-bottom-color: var(--amber);
       border-left: 2px solid var(--amber);
       background: rgba(227,162,74,0.04);
-      padding-left: 8px;
+      padding-left: 6px;
     }
 
     .nhdr-id {
-      font-size: 10px; font-weight: 600; color: var(--text);
+      font-size: 9px; font-weight: 600; color: var(--text);
       font-family: 'IBM Plex Mono', monospace;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
 
     .ntype-chip {
-      display: inline-block; margin-top: 3px;
-      font-size: 8px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.4px; padding: 1px 5px; border-radius: 2px;
+      display: inline-block; margin-top: 2px;
+      font-size: 7px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.4px; padding: 1px 4px; border-radius: 2px;
     }
     .ntype-chip.bcast    { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
     .ntype-chip.readonly { background: var(--surface-2); color: var(--text-dim); border: 1px solid var(--border); }
 
     /* Data cells */
     .ncell-val {
-      padding: 5px 10px;
-      font-size: 11px; color: var(--text-muted);
+      padding: 3px 8px;
+      font-size: 10px; color: var(--text-muted);
       font-family: 'IBM Plex Mono', monospace;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .ncell-val.is-bcast {
@@ -448,11 +448,11 @@
     .ncell-val .error { color: var(--red); font-weight: 600; }
     .ncell-val .normal{ color: var(--text); }
 
-    .status-inline { display: flex; align-items: center; gap: 5px; }
-    .ndot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .status-inline { display: flex; align-items: center; gap: 4px; }
+    .ndot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
 
     .uptime-strip { display: flex; gap: 1px; }
-    .useg { width: 4px; height: 10px; border-radius: 1px; }
+    .useg { width: 3px; height: 8px; border-radius: 1px; }
 
     /* Chain icon colors */
     .icon-eth    { background: rgba(98,126,234,0.12);  color: #627eea; }
@@ -757,9 +757,7 @@ function renderL1NetworkHealth(chain, cs) {
             <span class="val-panel-title">Decentralization</span>
           </div>
           <div class="nakamoto-line">Nakamoto Coefficient: <strong style="color:var(--text)">${chain.nakamoto}</strong></div>
-          <div class="nakamoto-line" style="margin-top:6px;color:var(--text-dim)">
-            ${chain.nakamoto} entities required to<br>collude to halt the network
-          </div>
+          <div class="nakamoto-line" style="margin-top:3px;color:var(--text-dim)">${chain.nakamoto} entities to collude and halt</div>
         </div>
       </div>
     </div>`;
@@ -780,7 +778,7 @@ function renderCantonNetworkHealth(chain, cs) {
     <div class="net-body">
       <div class="info-note enterprise">
         <span class="info-note-icon">ℹ</span>
-        <span>Canton is a permissioned enterprise DLT by Digital Asset. Unlike public L1s, it uses privacy-partitioned sync domains for ordering and does not have a public fee market, native token, or validator set.</span>
+        <span>Permissioned enterprise DLT (Digital Asset) · Privacy-partitioned sync domains · No public validators, fee market, or native token · DAML smart contracts</span>
       </div>
       <div class="net-metrics-row">
         <div class="net-mblock" style="flex:1.3">
@@ -824,7 +822,7 @@ function renderCantonNetworkHealth(chain, cs) {
           <div class="spec-sub">no public validators</div>
         </div>
       </div>
-      <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-dim);margin-bottom:6px">Sync Domain Status</div>
+      <div style="font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-dim);margin-bottom:4px">Sync Domains</div>
       <div class="domain-pills">${domainPills}</div>
     </div>`;
 }
@@ -840,7 +838,7 @@ function renderBaseNetworkHealth(chain, cs) {
     <div class="net-body">
       <div class="info-note l2">
         <span class="info-note-icon">ℹ</span>
-        <span>Base is an OP Stack Optimistic Rollup L2 on Ethereum. Transactions are batched and posted to Ethereum for data availability. Withdrawals are subject to a ${chain.faultProofWindow} fault proof window. The sequencer is operated by ${chain.sequencer}.</span>
+        <span>OP Stack Optimistic Rollup on Ethereum · Transactions batched to L1 for data availability · ${chain.faultProofWindow} fault proof withdrawal window · Sequencer: ${chain.sequencer}</span>
       </div>
       <div class="seq-row">
         <span class="seq-key">Sequencer</span>
@@ -875,12 +873,7 @@ function renderBaseNetworkHealth(chain, cs) {
         <div class="spec-card">
           <div class="spec-lbl">L1 Data Lag</div>
           <div class="spec-val ${l1LagColor}">${cs.l1DataLag} blocks</div>
-          <div class="spec-sub">behind ${chain.l1Chain}</div>
-        </div>
-        <div class="spec-card">
-          <div class="spec-lbl">Derivation Lag</div>
-          <div class="spec-val ${cs.derivationLag <= 2 ? 'ok' : 'warn'}">${cs.derivationLag} blocks</div>
-          <div class="spec-sub">L2 from L1 origin</div>
+          <div class="spec-sub">behind Ethereum</div>
         </div>
         <div class="spec-card">
           <div class="spec-lbl">L1 Origin Block</div>
@@ -896,11 +889,6 @@ function renderBaseNetworkHealth(chain, cs) {
           <div class="spec-lbl">Fault Proof Window</div>
           <div class="spec-val amber">${chain.faultProofWindow}</div>
           <div class="spec-sub">withdrawal challenge</div>
-        </div>
-        <div class="spec-card">
-          <div class="spec-lbl">Settlement Layer</div>
-          <div class="spec-val normal">Ethereum</div>
-          <div class="spec-sub">data availability</div>
         </div>
       </div>
     </div>`;
