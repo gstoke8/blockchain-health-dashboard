@@ -3,33 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Node Operations Center</title>
+  <title>Node Operations Center — FNDB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:        #0b0e14;
-      --surface:   #131720;
-      --surface-2: #1a2030;
-      --surface-3: #1e2638;
-      --border:    #2a3347;
-      --border-2:  #354060;
-      --text:      #e2e8f0;
-      --text-muted:#8896b3;
-      --text-dim:  #5a6a85;
+      --bg:        #0d1117;
+      --surface:   #161b22;
+      --surface-2: #1c2128;
+      --surface-3: #21262d;
+      --border:    #30363d;
+      --border-2:  #3d444d;
+      --text:      #e6edf3;
+      --text-muted:#8b949e;
+      --text-dim:  #484f58;
 
-      --green:  #22c55e;
-      --green-bg: rgba(34,197,94,0.08);
-      --green-border: rgba(34,197,94,0.3);
+      --green:        #3fb950;
+      --green-bg:     rgba(63,185,80,0.08);
+      --green-border: rgba(63,185,80,0.25);
 
-      --yellow: #eab308;
-      --yellow-bg: rgba(234,179,8,0.08);
-      --yellow-border: rgba(234,179,8,0.3);
+      --yellow:        #d29922;
+      --yellow-bg:     rgba(210,153,34,0.08);
+      --yellow-border: rgba(210,153,34,0.25);
 
-      --red:    #ef4444;
-      --red-bg: rgba(239,68,68,0.08);
-      --red-border: rgba(239,68,68,0.3);
+      --red:        #f85149;
+      --red-bg:     rgba(248,81,73,0.08);
+      --red-border: rgba(248,81,73,0.25);
 
-      --blue:   #3b82f6;
-      --purple: #8b5cf6;
+      --amber:        #e3a24a;
+      --amber-bg:     rgba(227,162,74,0.08);
+      --amber-border: rgba(227,162,74,0.25);
+
+      --blue:   #388bfd;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,10 +42,13 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
       font-size: 13px;
       min-height: 100vh;
+      line-height: 1.5;
     }
+
+    .mono { font-family: 'IBM Plex Mono', 'Consolas', monospace; }
 
     /* ── Header ── */
     header {
@@ -63,21 +71,25 @@
       font-size: 14px;
       font-weight: 700;
       letter-spacing: -0.2px;
+      font-family: 'IBM Plex Sans', sans-serif;
     }
 
     .logo-mark {
       width: 30px; height: 30px;
-      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-      border-radius: 7px;
+      background: var(--surface-3);
+      border: 1px solid var(--amber-border);
+      border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 15px; font-weight: 800; color: #fff;
+      color: var(--amber);
+      font-size: 15px; font-weight: 700;
+      flex-shrink: 0;
     }
 
     .bank-name {
       color: var(--text-muted);
       font-size: 11px;
       font-weight: 400;
-      margin-left: 4px;
+      margin-left: 2px;
     }
 
     .header-right {
@@ -89,17 +101,19 @@
     .refresh-time {
       color: var(--text-dim);
       font-size: 11px;
+      font-family: 'IBM Plex Mono', monospace;
     }
 
     .btn {
       background: var(--surface-2);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 5px 11px;
+      padding: 5px 12px;
       border-radius: 6px;
       cursor: pointer;
       font-size: 12px;
-      display: flex; align-items: center; gap: 5px;
+      font-family: 'IBM Plex Sans', inherit;
+      display: flex; align-items: center; gap: 6px;
       transition: background 0.15s, border-color 0.15s;
     }
     .btn:hover { background: var(--surface-3); border-color: var(--border-2); }
@@ -119,45 +133,48 @@
 
     /* ── Summary Bar ── */
     .summary-bar {
-      padding: 14px 24px;
+      padding: 11px 24px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
       border-bottom: 1px solid var(--border);
+      background: var(--surface);
     }
 
     .stat-pill {
       display: flex; align-items: center; gap: 6px;
-      background: var(--surface);
+      background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 6px 12px;
+      border-radius: 5px;
+      padding: 5px 12px;
       font-size: 12px;
     }
-
-    .stat-pill .num { font-weight: 700; font-size: 14px; }
-    .stat-pill .label { color: var(--text-muted); }
-
-    .dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
+    .stat-pill .num {
+      font-weight: 700; font-size: 15px;
+      font-family: 'IBM Plex Mono', monospace;
     }
-    .dot-green  { background: var(--green);  box-shadow: 0 0 5px var(--green); }
-    .dot-yellow { background: var(--yellow); box-shadow: 0 0 5px var(--yellow); }
-    .dot-red    { background: var(--red);    box-shadow: 0 0 5px var(--red); animation: pulse 1.4s infinite; }
+    .stat-pill .lbl { color: var(--text-muted); }
 
-    @keyframes pulse {
-      0%,100% { box-shadow: 0 0 4px var(--red); }
-      50%      { box-shadow: 0 0 10px var(--red); }
+    .sdot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
     }
+    .sdot-green  { background: var(--green); }
+    .sdot-yellow { background: var(--yellow); }
+    .sdot-red    { background: var(--red); animation: blink 1.4s infinite; }
+
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.4; }
+    }
+
+    .bar-div { width: 1px; height: 18px; background: var(--border); margin: 0 4px; }
 
     /* ── Grid ── */
     .grid {
-      padding: 20px 24px 40px;
+      padding: 20px 24px 48px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(820px, 1fr));
       gap: 16px;
     }
 
@@ -165,181 +182,286 @@
     .chain-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 8px;
       overflow: hidden;
     }
-
-    .chain-card.border-red    { border-color: var(--red-border); }
-    .chain-card.border-yellow { border-color: var(--yellow-border); }
+    .chain-card.alert-red    { border-color: var(--red-border); }
+    .chain-card.alert-yellow { border-color: var(--yellow-border); }
 
     /* Card Header */
     .card-header {
-      padding: 14px 16px 12px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid var(--border);
     }
 
-    .chain-id {
-      display: flex; align-items: center; gap: 10px;
-    }
+    .chain-identity { display: flex; align-items: center; gap: 10px; }
 
     .chain-icon {
-      width: 34px; height: 34px;
+      width: 36px; height: 36px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 17px; font-weight: 700; flex-shrink: 0;
+      font-family: 'IBM Plex Mono', monospace;
     }
 
-    .chain-name { font-size: 14px; font-weight: 700; }
-    .chain-sub  { color: var(--text-muted); font-size: 11px; margin-top: 1px; }
+    .chain-name-row {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 14px; font-weight: 700;
+    }
 
-    .node-badge {
+    .chain-ticker {
+      color: var(--text-muted); font-weight: 400; font-size: 11px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .type-tag {
+      font-size: 9px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.4px; padding: 2px 6px; border-radius: 3px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+    .type-tag.l2         { background: rgba(56,139,253,0.08); border-color: rgba(56,139,253,0.3); color: #79c0ff; }
+    .type-tag.enterprise { background: rgba(139,92,246,0.08); border-color: rgba(139,92,246,0.3); color: #d2a8ff; }
+
+    .chain-sub { color: var(--text-dim); font-size: 10px; margin-top: 1px; font-family: 'IBM Plex Mono', monospace; }
+
+    .bcast-badge {
       display: flex; align-items: center; gap: 6px;
-      padding: 5px 11px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
+      padding: 5px 10px; border-radius: 5px;
+      font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.4px;
       border: 1px solid transparent;
     }
-    .node-badge.green  { background: var(--green-bg);  border-color: var(--green-border);  color: var(--green); }
-    .node-badge.yellow { background: var(--yellow-bg); border-color: var(--yellow-border); color: var(--yellow); }
-    .node-badge.red    { background: var(--red-bg);    border-color: var(--red-border);    color: var(--red); }
+    .bcast-badge.online   { background: var(--green-bg);  border-color: var(--green-border);  color: var(--green); }
+    .bcast-badge.degraded { background: var(--yellow-bg); border-color: var(--yellow-border); color: var(--yellow); }
+    .bcast-badge.offline  { background: var(--red-bg);    border-color: var(--red-border);    color: var(--red); }
 
-    /* Sections */
-    .card-sections {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .section {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section.full { grid-column: 1 / -1; }
-
-    .section:nth-child(odd):not(.full) {
-      border-right: 1px solid var(--border);
-    }
-
-    .section-label {
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: var(--text-dim);
-      margin-bottom: 8px;
-    }
-
-    /* Node Health Section */
-    .node-metrics {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-    }
-
-    .metric {
+    /* Section headers */
+    .sec-header {
+      padding: 5px 16px;
       background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 7px 9px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
     }
 
-    .metric-label { color: var(--text-dim); font-size: 10px; margin-bottom: 2px; }
-    .metric-value { font-weight: 700; font-size: 13px; }
-    .metric-value.ok     { color: var(--green); }
-    .metric-value.warn   { color: var(--yellow); }
-    .metric-value.error  { color: var(--red); }
-    .metric-value.normal { color: var(--text); }
-
-    /* Network Health */
-    .network-status {
-      display: flex; align-items: center; gap: 6px;
-      margin-bottom: 6px;
+    .sec-title {
+      font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      color: var(--text-dim);
     }
 
-    .net-indicator {
-      width: 9px; height: 9px; border-radius: 50%;
+    .sec-meta {
+      font-size: 10px; color: var(--text-dim);
+      font-family: 'IBM Plex Mono', monospace;
     }
 
-    .net-label { font-weight: 600; font-size: 13px; }
-    .net-detail { color: var(--text-muted); font-size: 11px; margin-top: 2px; }
+    /* ── Network Health ── */
+    .net-body { padding: 14px 16px; }
 
-    /* Centralization */
-    .decentral-score {
+    .net-metrics-row {
+      display: flex; gap: 0; margin-bottom: 14px;
+    }
+
+    .net-mblock {
+      flex: 1; padding: 8px 12px;
+      background: var(--surface-2); border: 1px solid var(--border);
+    }
+    .net-mblock:first-child { border-radius: 5px 0 0 5px; }
+    .net-mblock:last-child  { border-radius: 0 5px 5px 0; }
+    .net-mblock + .net-mblock { border-left: none; }
+
+    .nmb-label {
+      font-size: 9px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.4px; color: var(--text-dim); margin-bottom: 5px;
+    }
+
+    .net-status-row { display: flex; align-items: center; gap: 6px; }
+
+    .net-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    .net-status-text { font-size: 13px; font-weight: 600; }
+    .net-status-detail { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+    .nbig {
+      font-size: 22px; font-weight: 700; letter-spacing: -0.5px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .nunit { font-size: 11px; color: var(--text-muted); margin-left: 3px; }
+    .nsub  { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Validators (L1) */
+    .val-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .val-panel-head {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 7px;
     }
+    .val-panel-title {
+      font-size: 9px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.5px; color: var(--text-dim);
+    }
 
-    .decentral-label { font-weight: 600; font-size: 13px; }
     .risk-badge {
-      font-size: 10px; font-weight: 700;
-      padding: 2px 7px; border-radius: 4px;
-      text-transform: uppercase;
+      font-size: 9px; font-weight: 700; padding: 2px 6px;
+      border-radius: 3px; text-transform: uppercase; letter-spacing: 0.3px;
     }
     .risk-low    { background: var(--green-bg);  color: var(--green); }
     .risk-medium { background: var(--yellow-bg); color: var(--yellow); }
     .risk-high   { background: var(--red-bg);    color: var(--red); }
 
-    .validator-bars { display: flex; flex-direction: column; gap: 4px; }
+    .val-bars { display: flex; flex-direction: column; gap: 4px; }
 
-    .val-row {
-      display: flex; align-items: center; gap: 6px;
+    .vbar-row { display: flex; align-items: center; gap: 6px; }
+    .vbar-name { width: 80px; color: var(--text-muted); font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .vbar-track { flex: 1; height: 4px; background: var(--surface-3); border-radius: 2px; overflow: hidden; }
+    .vbar-fill  { height: 100%; border-radius: 2px; }
+    .vbar-pct   { width: 28px; text-align: right; font-size: 10px; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; }
+
+    .nakamoto-line { font-size: 10px; color: var(--text-dim); margin-top: 5px; }
+
+    /* Info note */
+    .info-note {
+      display: flex; align-items: flex-start; gap: 7px;
+      padding: 8px 10px; border-radius: 5px;
+      font-size: 11px; color: var(--text-muted); line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .info-note.enterprise { background: rgba(139,92,246,0.05); border: 1px solid rgba(139,92,246,0.15); }
+    .info-note.l2         { background: rgba(56,139,253,0.05);  border: 1px solid rgba(56,139,253,0.15); }
+    .info-note-icon { flex-shrink: 0; font-size: 12px; }
+
+    /* Special metrics grid (Canton / Base) */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px; margin-bottom: 12px;
     }
 
-    .val-name { width: 90px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-muted); font-size: 11px; }
-    .val-bar-wrap { flex: 1; height: 5px; background: var(--surface-3); border-radius: 3px; overflow: hidden; }
-    .val-bar { height: 100%; border-radius: 3px; background: var(--blue); }
-    .val-pct { width: 34px; text-align: right; font-size: 11px; color: var(--text-muted); }
-
-    /* TPS + Fee Section */
-    .big-stat { margin-bottom: 3px; }
-    .big-num { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
-    .big-unit { font-size: 11px; color: var(--text-muted); margin-left: 3px; }
-
-    .fee-row {
-      display: flex; flex-direction: column; gap: 2px;
+    .spec-card {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 5px; padding: 8px 10px;
     }
+    .spec-lbl {
+      font-size: 9px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.4px; color: var(--text-dim); margin-bottom: 3px;
+    }
+    .spec-val {
+      font-size: 14px; font-weight: 700;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .spec-val.ok     { color: var(--green); }
+    .spec-val.warn   { color: var(--yellow); }
+    .spec-val.error  { color: var(--red); }
+    .spec-val.amber  { color: var(--amber); }
+    .spec-val.normal { color: var(--text); }
+    .spec-sub { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
 
-    .fee-native { font-size: 13px; font-weight: 700; }
-    .fee-usd    { font-size: 11px; color: var(--text-muted); }
+    /* Domain pills (Canton) */
+    .domain-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+    .dpill {
+      font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 10px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .dpill.active   { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+    .dpill.degraded { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
 
-    /* Footer */
-    .card-footer {
-      padding: 8px 14px;
-      display: flex; align-items: center; justify-content: space-between;
-      color: var(--text-dim);
+    /* Sequencer row (Base) */
+    .seq-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; margin-bottom: 10px;
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: 5px;
       font-size: 11px;
-      background: var(--surface-2);
+    }
+    .seq-key { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-dim); }
+    .seq-val { color: var(--text); font-weight: 600; }
+    .seq-warning { margin-left: auto; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; padding: 2px 6px; border-radius: 3px; background: var(--yellow-bg); color: var(--yellow); }
+
+    /* ── Node Monitoring Table ── */
+    .node-body { padding: 12px 16px; overflow-x: auto; }
+
+    .node-grid {
+      display: grid;
+      grid-template-columns: 80px repeat(var(--ncols), minmax(170px, 1fr));
+      min-width: 0;
     }
 
-    .uptime-bar-wrap {
-      display: flex; align-items: center; gap: 6px;
-    }
-    .uptime-strip {
-      display: flex; gap: 2px;
-    }
-    .uptime-seg {
-      width: 5px; height: 12px; border-radius: 2px;
+    /* Each logical row uses display:contents so cells join the grid */
+    .nrow { display: contents; }
+
+    /* Label column cells */
+    .ncell-lbl {
+      display: flex; align-items: center;
+      padding: 5px 0 5px 0;
+      font-size: 9px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.4px; color: var(--text-dim);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
     }
 
-    /* Icons */
-    .icon-btc  { background: rgba(247,147,26,0.12);  color: #f7931a; }
-    .icon-eth  { background: rgba(98,126,234,0.12);  color: #627eea; }
-    .icon-sol  { background: rgba(153,69,255,0.12);  color: #9945ff; }
-    .icon-bnb  { background: rgba(240,185,11,0.12);  color: #f0b90b; }
-    .icon-tron { background: rgba(239,68,68,0.12);   color: #ef4444; }
+    /* Header row label */
+    .ncell-lbl.hdr { align-items: flex-end; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
 
-    /* Spinner */
+    /* Node column headers */
+    .ncell-hdr {
+      padding: 0 10px 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    .ncell-hdr.is-bcast {
+      border-bottom-color: var(--amber);
+      border-left: 2px solid var(--amber);
+      background: rgba(227,162,74,0.04);
+      padding-left: 8px;
+    }
+
+    .nhdr-id {
+      font-size: 10px; font-weight: 600; color: var(--text);
+      font-family: 'IBM Plex Mono', monospace;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .ntype-chip {
+      display: inline-block; margin-top: 3px;
+      font-size: 8px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.4px; padding: 1px 5px; border-radius: 2px;
+    }
+    .ntype-chip.bcast    { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+    .ntype-chip.readonly { background: var(--surface-2); color: var(--text-dim); border: 1px solid var(--border); }
+
+    /* Data cells */
+    .ncell-val {
+      padding: 5px 10px;
+      font-size: 11px; color: var(--text-muted);
+      font-family: 'IBM Plex Mono', monospace;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .ncell-val.is-bcast {
+      border-left: 2px solid var(--amber-border);
+      background: rgba(227,162,74,0.03);
+    }
+
+    .ncell-val .ok    { color: var(--green); font-weight: 600; }
+    .ncell-val .warn  { color: var(--yellow); font-weight: 600; }
+    .ncell-val .error { color: var(--red); font-weight: 600; }
+    .ncell-val .normal{ color: var(--text); }
+
+    .status-inline { display: flex; align-items: center; gap: 5px; }
+    .ndot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    .uptime-strip { display: flex; gap: 1px; }
+    .useg { width: 4px; height: 10px; border-radius: 1px; }
+
+    /* Chain icon colors */
+    .icon-eth    { background: rgba(98,126,234,0.12);  color: #627eea; }
+    .icon-sol    { background: rgba(153,69,255,0.12);  color: #9945ff; }
+    .icon-canton { background: rgba(74,127,212,0.12);  color: #4a7fd4; }
+    .icon-base   { background: rgba(0,102,255,0.12);   color: #4d88ff; }
+
     .spin { animation: spin 0.8s linear infinite; display: inline-block; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Tooltip */
-    [title] { cursor: default; }
   </style>
 </head>
 <body>
@@ -359,322 +481,571 @@
 </header>
 
 <div class="alert-banner" id="alertBanner"></div>
-
 <div class="summary-bar" id="summaryBar"></div>
 <div class="grid" id="grid"></div>
 
 <script>
-// ─── Chain Config ─────────────────────────────────────────────────────────────
+// ─── Chain Config ──────────────────────────────────────────────────────────────
 const CHAINS = [
   {
-    id: 'btc',
-    name: 'Bitcoin',
-    ticker: 'BTC',
-    icon: '₿',
-    iconClass: 'icon-btc',
-    nodeId: 'FNDB-BTC-NODE-01',
-    tpsRange: [3, 7],
-    feeRange: { min: 2.1, max: 8.4, native: 'sats/vB', nativeVal: () => (Math.random()*30+10).toFixed(0) },
-    validators: [
-      { name: 'Foundry USA', pct: 28 },
-      { name: 'Antpool',     pct: 17 },
-      { name: 'F2Pool',      pct: 12 },
-      { name: 'Others',      pct: 43 },
-    ],
-    nakamoto: 4,
-    decentral: 'medium'
-  },
-  {
-    id: 'eth',
-    name: 'Ethereum',
-    ticker: 'ETH',
-    icon: 'Ξ',
-    iconClass: 'icon-eth',
-    nodeId: 'FNDB-ETH-NODE-01',
+    id: 'eth', name: 'Ethereum', ticker: 'ETH', icon: 'Ξ',
+    iconClass: 'icon-eth', type: 'l1', typeLabel: 'L1 · Proof of Stake',
     tpsRange: [12, 28],
     feeRange: { min: 0.4, max: 3.2, native: 'gwei', nativeVal: () => (Math.random()*15+5).toFixed(1) },
     validators: [
-      { name: 'Lido',        pct: 28 },
-      { name: 'Coinbase',    pct: 14 },
-      { name: 'Binance',     pct:  5 },
-      { name: 'Others',      pct: 53 },
+      { name: 'Lido',     pct: 28 },
+      { name: 'Coinbase', pct: 14 },
+      { name: 'Binance',  pct:  5 },
+      { name: 'Others',   pct: 53 },
     ],
-    nakamoto: 3,
-    decentral: 'medium'
+    nakamoto: 3, decentral: 'medium',
+    broadcastNode: { id: 'FNDB-ETH-VAL-01',  type: 'Validator Node', client: 'Geth v1.13.14',  network: 'Mainnet (chainId: 1)' },
+    readNodes: [
+      { id: 'FNDB-ETH-RO-01', type: 'Read-Only', client: 'Geth v1.13.14',  network: 'Mainnet (chainId: 1)' },
+      { id: 'FNDB-ETH-RO-02', type: 'Read-Only', client: 'Reth v0.2.0',    network: 'Mainnet (chainId: 1)' },
+      { id: 'FNDB-ETH-RO-03', type: 'Read-Only', client: 'Geth v1.13.12',  network: 'Mainnet (chainId: 1)' },
+    ],
   },
   {
-    id: 'sol',
-    name: 'Solana',
-    ticker: 'SOL',
-    icon: '◎',
-    iconClass: 'icon-sol',
-    nodeId: 'FNDB-SOL-NODE-01',
+    id: 'sol', name: 'Solana', ticker: 'SOL', icon: '◎',
+    iconClass: 'icon-sol', type: 'l1', typeLabel: 'L1 · Proof of History',
     tpsRange: [2200, 4800],
-    feeRange: { min: 0.0005, max: 0.004, native: 'SOL', nativeVal: () => '0.000025' },
+    feeRange: { min: 0.000025, max: 0.000025, native: 'SOL', nativeVal: () => '0.000025' },
     validators: [
       { name: 'Jito Labs',   pct: 22 },
       { name: 'Jump Crypto', pct: 11 },
       { name: 'Everstake',   pct:  8 },
       { name: 'Others',      pct: 59 },
     ],
-    nakamoto: 5,
-    decentral: 'medium'
+    nakamoto: 5, decentral: 'medium',
+    broadcastNode: { id: 'FNDB-SOL-VAL-01',  type: 'Validator Node', client: 'agave 2.0.21', network: 'mainnet-beta' },
+    readNodes: [
+      { id: 'FNDB-SOL-RO-01', type: 'Read-Only', client: 'agave 2.0.21', network: 'mainnet-beta' },
+      { id: 'FNDB-SOL-RO-02', type: 'Read-Only', client: 'agave 2.0.18', network: 'mainnet-beta' },
+      { id: 'FNDB-SOL-RO-03', type: 'Read-Only', client: 'agave 2.0.21', network: 'mainnet-beta' },
+    ],
   },
   {
-    id: 'bnb',
-    name: 'BNB Chain',
-    ticker: 'BNB',
-    icon: 'B',
-    iconClass: 'icon-bnb',
-    nodeId: 'FNDB-BNB-NODE-01',
-    tpsRange: [80, 300],
-    feeRange: { min: 0.01, max: 0.05, native: 'Gwei', nativeVal: () => (Math.random()*2+1).toFixed(0) },
-    validators: [
-      { name: 'Binance',     pct: 42 },
-      { name: 'TW Staking',  pct: 11 },
-      { name: 'Certik',      pct:  6 },
-      { name: 'Others',      pct: 41 },
+    id: 'canton', name: 'Canton', ticker: '', icon: 'C',
+    iconClass: 'icon-canton', type: 'canton', typeLabel: 'Enterprise DLT',
+    isEnterprise: true,
+    activeDomains: 2, damlVersion: '2.9.4',
+    participantRange: [18, 24],
+    ledgerEventsRange: [120, 380],
+    activeContractsRange: [8400, 12600],
+    syncDomainNames: ['fndb-sync-domain-1', 'fndb-sync-domain-2'],
+    broadcastNode: { id: 'FNDB-CANTON-PART-01', type: 'Participant',  client: 'Canton 2.9.4', network: 'fndb-sync-domain-1' },
+    readNodes: [
+      { id: 'FNDB-CANTON-RO-01', type: 'Observer', client: 'Canton 2.9.4', network: 'fndb-sync-domain-1' },
+      { id: 'FNDB-CANTON-RO-02', type: 'Observer', client: 'Canton 2.9.2', network: 'fndb-sync-domain-1' },
     ],
-    nakamoto: 2,
-    decentral: 'high'
   },
   {
-    id: 'tron',
-    name: 'TRON',
-    ticker: 'TRX',
-    icon: 'T',
-    iconClass: 'icon-tron',
-    nodeId: 'FNDB-TRX-NODE-01',
-    tpsRange: [1500, 2500],
-    feeRange: { min: 0.00, max: 0.01, native: 'TRX', nativeVal: () => '0' },
-    validators: [
-      { name: 'Binance SR',  pct: 14 },
-      { name: 'Poloniex',    pct: 11 },
-      { name: 'HTX',         pct: 10 },
-      { name: 'Others',      pct: 65 },
+    id: 'base', name: 'Base', ticker: 'ETH', icon: 'B',
+    iconClass: 'icon-base', type: 'base', typeLabel: 'OP Stack L2',
+    isL2: true,
+    tpsRange: [15, 85],
+    feeRange: { min: 0.0002, max: 0.002, native: 'gwei', nativeVal: () => (Math.random()*0.05+0.01).toFixed(4) },
+    faultProofWindow: '7 days', sequencer: 'Coinbase (centralized)', l1Chain: 'Ethereum Mainnet',
+    broadcastNode: { id: 'FNDB-BASE-NODE-01', type: 'Writer Node', client: 'op-geth v1.101315.2', network: 'Base (chainId: 8453)' },
+    readNodes: [
+      { id: 'FNDB-BASE-RO-01', type: 'Read-Only', client: 'op-geth v1.101315.2', network: 'Base (chainId: 8453)' },
+      { id: 'FNDB-BASE-RO-02', type: 'Read-Only', client: 'op-geth v1.101315.1', network: 'Base (chainId: 8453)' },
+      { id: 'FNDB-BASE-RO-03', type: 'Read-Only', client: 'op-geth v1.101315.2', network: 'Base (chainId: 8453)' },
     ],
-    nakamoto: 2,
-    decentral: 'high'
-  }
+  },
 ];
 
 const NET_STATES = {
-  healthy:  { label: 'Block Production Normal', detail: 'Finality within expected range' },
-  degraded: { label: 'Increased Latency',       detail: 'Block times elevated — monitoring' },
-  halted:   { label: 'Block Production Stalled', detail: 'No new blocks in >2 minutes' }
+  healthy:  { label: 'Operational', detail: 'Block production normal' },
+  degraded: { label: 'Degraded',    detail: 'Elevated block times — monitoring' },
+  halted:   { label: 'Halted',      detail: 'No new blocks in >2 minutes' },
 };
 
-const DECENTRAL_LABELS = {
-  low:    { label: 'Low Risk',    cls: 'risk-low' },
+const DECENTRAL = {
   medium: { label: 'Medium Risk', cls: 'risk-medium' },
-  high:   { label: 'High Risk',   cls: 'risk-high' }
+  high:   { label: 'High Risk',   cls: 'risk-high' },
+  low:    { label: 'Low Risk',    cls: 'risk-low' },
 };
 
 // ─── State ────────────────────────────────────────────────────────────────────
 let state = {};
 let lastRefresh = Date.now();
 
-function rand(min, max) { return Math.random() * (max - min) + min; }
-function randInt(min, max) { return Math.floor(rand(min, max)); }
+function rand(a, b) { return Math.random() * (b - a) + a; }
+function randInt(a, b) { return Math.floor(rand(a, b + 1)); }
 
-function weightedStatus() {
+function weightedNetStatus() {
   const r = Math.random();
-  if (r < 0.72) return 'healthy';
-  if (r < 0.90) return 'degraded';
-  return 'halted';
+  return r < 0.72 ? 'healthy' : r < 0.90 ? 'degraded' : 'halted';
 }
 
-function nodeStatus() {
+function randNodeStatus() {
   const r = Math.random();
-  if (r < 0.75) return 'green';
-  if (r < 0.92) return 'yellow';
-  return 'red';
+  return r < 0.78 ? 'online' : r < 0.93 ? 'degraded' : 'offline';
+}
+
+function generateNodeState(status) {
+  const lag = status === 'online' ? randInt(0,2) : status === 'degraded' ? randInt(3,18) : randInt(20,150);
+  const secs = status === 'online' ? randInt(3,45) : status === 'degraded' ? randInt(30,180) : randInt(120,600);
+  return {
+    status,
+    lastUpdate: secs < 60 ? `${secs}s ago` : `${Math.floor(secs/60)}m ${secs%60}s ago`,
+    lag,
+    uptime: status === 'online'
+      ? (99 + rand(0, 0.99)).toFixed(2)
+      : status === 'degraded' ? (95 + rand(0, 3.5)).toFixed(2)
+      : (88 + rand(0, 6)).toFixed(2),
+    uptimeSegs: Array.from({length:28}, () => {
+      const r = Math.random();
+      const failRate = status === 'online' ? 0.04 : status === 'degraded' ? 0.18 : 0.40;
+      return r > failRate ? 'g' : (Math.random() > 0.5 ? 'y' : 'r');
+    }),
+    syncBlock: (17_500_000 + randInt(0, 500_000)).toLocaleString(),
+  };
 }
 
 function generateState() {
   const s = {};
   for (const c of CHAINS) {
-    const ns = nodeStatus();
-    const net = ns === 'red' ? 'halted' : (ns === 'yellow' ? 'degraded' : weightedStatus());
-    const lag = ns === 'green' ? randInt(0, 2) : (ns === 'yellow' ? randInt(2, 15) : randInt(20, 120));
-    s[c.id] = {
-      nodeStatus: ns,
-      networkState: net,
-      blockLag: lag,
-      uptime: ns === 'green' ? (99 + rand(0, 0.99)).toFixed(2) : (95 + rand(0, 3.5)).toFixed(2),
-      syncBlock: (17_500_000 + randInt(0, 500_000)).toLocaleString(),
-      lastBlock: randInt(1, 30) + 's ago',
-      tps: randInt(c.tpsRange[0], c.tpsRange[1]),
-      feeUSD: rand(c.feeRange.min, c.feeRange.max).toFixed(c.feeRange.max < 0.1 ? 4 : 2),
-      feeNative: c.feeRange.nativeVal(),
-      checkedAgo: randInt(1, 5) + 'm ago',
-      uptimeSegs: Array.from({length:28}, () => Math.random() > (ns === 'green' ? 0.03 : 0.12) ? 'g' : (Math.random() > 0.5 ? 'y' : 'r'))
-    };
+    const bcastStatus = randNodeStatus();
+    const netState = bcastStatus === 'offline' ? 'halted'
+                   : bcastStatus === 'degraded' ? 'degraded'
+                   : weightedNetStatus();
+
+    const nodes = {};
+    nodes[c.broadcastNode.id] = generateNodeState(bcastStatus);
+    for (const rn of c.readNodes) nodes[rn.id] = generateNodeState(randNodeStatus());
+
+    const cs = { bcastStatus, netState, nodes };
+
+    if (c.tpsRange) {
+      cs.tps = randInt(c.tpsRange[0], c.tpsRange[1]);
+      cs.feeUSD = rand(c.feeRange.min, c.feeRange.max).toFixed(c.feeRange.max < 0.01 ? 6 : c.feeRange.max < 0.1 ? 4 : 2);
+      cs.feeNative = c.feeRange.nativeVal();
+    }
+
+    if (c.isEnterprise) {
+      cs.ledgerEvents = randInt(c.ledgerEventsRange[0], c.ledgerEventsRange[1]);
+      cs.activeContracts = randInt(c.activeContractsRange[0], c.activeContractsRange[1]).toLocaleString();
+      cs.activeParticipants = randInt(c.participantRange[0], c.participantRange[1]);
+      cs.syncDomains = c.syncDomainNames.map(name => ({
+        name, status: Math.random() > 0.12 ? 'active' : 'degraded'
+      }));
+    }
+
+    if (c.isL2) {
+      cs.l1DataLag = randInt(0, 4);
+      cs.derivationLag = randInt(0, 6);
+      cs.sequencerOk = Math.random() > 0.08;
+      cs.l1OriginBlock = (20_500_000 + randInt(0, 100_000)).toLocaleString();
+      cs.bridgeOk = Math.random() > 0.05;
+    }
+
+    s[c.id] = cs;
   }
   return s;
 }
 
-// ─── Render ───────────────────────────────────────────────────────────────────
-function nodeLabel(s) {
-  if (s === 'green')  return 'Node Online';
-  if (s === 'yellow') return 'Degraded';
-  return 'Node Down';
-}
-
+// ─── Render: Summary ──────────────────────────────────────────────────────────
 function renderSummary() {
-  const counts = { green:0, yellow:0, red:0 };
-  let alerts = [];
+  let online = 0, degraded = 0, offline = 0, netsHealthy = 0;
+  const alerts = [];
+
   for (const c of CHAINS) {
-    const ns = state[c.id].nodeStatus;
-    counts[ns]++;
-    if (ns === 'red')    alerts.push({ level:'red',    msg:`${c.name} node is offline — failover required` });
-    if (ns === 'yellow') alerts.push({ level:'yellow', msg:`${c.name} node degraded — increased block lag detected` });
+    const cs = state[c.id];
+    const allIds = [c.broadcastNode.id, ...c.readNodes.map(n => n.id)];
+    for (const id of allIds) {
+      const ns = cs.nodes[id].status;
+      if (ns === 'online') online++;
+      else if (ns === 'degraded') degraded++;
+      else offline++;
+    }
+    if (cs.netState === 'healthy') netsHealthy++;
+    if (cs.bcastStatus === 'offline')  alerts.push({ level:'red',    msg:`${c.name} broadcast node offline — failover required` });
+    if (cs.bcastStatus === 'degraded') alerts.push({ level:'yellow', msg:`${c.name} broadcast node degraded — elevated block lag` });
   }
 
   const banner = document.getElementById('alertBanner');
   if (alerts.length) {
-    const top = alerts.find(a=>a.level==='red') || alerts[0];
+    const top = alerts.find(a => a.level === 'red') || alerts[0];
     banner.className = `alert-banner show ${top.level}`;
-    banner.innerHTML = `<span>⚠</span> ${top.msg}${alerts.length>1 ? ` <b>+${alerts.length-1} more alerts</b>` : ''}`;
+    banner.innerHTML = `⚠ ${top.msg}${alerts.length > 1 ? ` <strong>+${alerts.length-1} more</strong>` : ''}`;
   } else {
     banner.className = 'alert-banner';
     banner.innerHTML = '';
   }
 
+  const total = CHAINS.reduce((n, c) => n + 1 + c.readNodes.length, 0);
   document.getElementById('summaryBar').innerHTML = `
     <div class="stat-pill">
-      <div class="dot dot-green"></div>
-      <span class="num" style="color:var(--green)">${counts.green}</span>
-      <span class="label">/ ${CHAINS.length} Nodes Online</span>
+      <div class="sdot sdot-green"></div>
+      <span class="num" style="color:var(--green)">${online}</span>
+      <span class="lbl">/ ${total} Nodes Online</span>
     </div>
-    <div class="stat-pill"><div class="dot dot-yellow"></div><span class="num" style="color:var(--yellow)">${counts.yellow}</span><span class="label">Degraded</span></div>
-    <div class="stat-pill"><div class="dot dot-red"></div><span class="num" style="color:var(--red)">${counts.red}</span><span class="label">Offline</span></div>
+    <div class="stat-pill">
+      <div class="sdot sdot-yellow"></div>
+      <span class="num" style="color:var(--yellow)">${degraded}</span>
+      <span class="lbl">Degraded</span>
+    </div>
+    <div class="stat-pill">
+      <div class="sdot sdot-red"></div>
+      <span class="num" style="color:var(--red)">${offline}</span>
+      <span class="lbl">Offline</span>
+    </div>
+    <div class="bar-div"></div>
+    <div class="stat-pill">
+      <span class="num" style="color:var(--green)">${netsHealthy}</span>
+      <span class="lbl">/ ${CHAINS.length} Networks Healthy</span>
+    </div>
     <div class="stat-pill" style="margin-left:auto">
-      <span style="color:var(--text-muted)">Monitoring ${CHAINS.length} chains · First National Digital Bank</span>
+      <span style="color:var(--text-dim);font-size:11px">4 chains · ${total} institutional nodes</span>
     </div>
   `;
 }
 
-function renderGrid() {
-  document.getElementById('grid').innerHTML = CHAINS.map(c => {
-    const s = state[c.id];
-    const ns = s.nodeStatus;
-    const net = NET_STATES[s.networkState];
-    const dc = DECENTRAL_LABELS[c.decentral];
-    const cardBorder = ns === 'red' ? 'border-red' : (ns === 'yellow' ? 'border-yellow' : '');
+// ─── Render: Network Health (L1) ──────────────────────────────────────────────
+function renderL1NetworkHealth(chain, cs) {
+  const net = NET_STATES[cs.netState];
+  const netColor = cs.netState === 'healthy' ? 'var(--green)' : cs.netState === 'degraded' ? 'var(--yellow)' : 'var(--red)';
+  const dc = DECENTRAL[chain.decentral];
 
-    // Validator bars
-    const valBars = c.validators.map(v => `
-      <div class="val-row">
-        <div class="val-name" title="${v.name}">${v.name}</div>
-        <div class="val-bar-wrap"><div class="val-bar" style="width:${v.pct}%;background:${v.name==='Others'?'var(--border-2)':'var(--blue)'}"></div></div>
-        <div class="val-pct">${v.pct}%</div>
-      </div>`).join('');
-
-    // Uptime segments
-    const segs = s.uptimeSegs.map(g =>
-      `<div class="uptime-seg" style="background:${g==='g'?'var(--green)':g==='y'?'var(--yellow)':'var(--red)'}"></div>`
-    ).join('');
-
-    const lagColor = s.blockLag <= 2 ? 'ok' : (s.blockLag <= 10 ? 'warn' : 'error');
-    const netDotColor = s.networkState === 'healthy' ? 'var(--green)' : (s.networkState === 'degraded' ? 'var(--yellow)' : 'var(--red)');
-
-    return `
-    <div class="chain-card ${cardBorder}">
-
-      <!-- Header -->
-      <div class="card-header">
-        <div class="chain-id">
-          <div class="chain-icon ${c.iconClass}">${c.icon}</div>
-          <div>
-            <div class="chain-name">${c.name} <span style="color:var(--text-muted);font-weight:400;font-size:11px">${c.ticker}</span></div>
-            <div class="chain-sub">${c.nodeId}</div>
-          </div>
-        </div>
-        <div class="node-badge ${ns}">
-          <div class="dot dot-${ns}"></div>
-          ${nodeLabel(ns)}
-        </div>
+  const valBars = chain.validators.map(v => `
+    <div class="vbar-row">
+      <div class="vbar-name" title="${v.name}">${v.name}</div>
+      <div class="vbar-track">
+        <div class="vbar-fill" style="width:${v.pct}%;background:${v.name==='Others'?'var(--border-2)':'var(--blue)'}"></div>
       </div>
+      <div class="vbar-pct">${v.pct}%</div>
+    </div>`).join('');
 
-      <div class="card-sections">
+  const feeBlock = cs.feeUSD != null ? `
+    <div class="net-mblock">
+      <div class="nmb-label">Tx Fee</div>
+      <div class="nbig">${cs.feeNative}<span class="nunit">${chain.feeRange.native}</span></div>
+      <div class="nsub">≈ $${cs.feeUSD} USD</div>
+    </div>` : '';
 
-        <!-- Node Health -->
-        <div class="section full">
-          <div class="section-label">Bank Node Health</div>
-          <div class="node-metrics">
-            <div class="metric">
-              <div class="metric-label">Block Lag</div>
-              <div class="metric-value ${lagColor}">${s.blockLag} blocks</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Last Block Seen</div>
-              <div class="metric-value normal">${s.lastBlock}</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Node Uptime (30d)</div>
-              <div class="metric-value ${parseFloat(s.uptime)>99?'ok':'warn'}">${s.uptime}%</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Last Health Check</div>
-              <div class="metric-value normal">${s.checkedAgo}</div>
-            </div>
+  return `
+    <div class="net-body">
+      <div class="net-metrics-row">
+        <div class="net-mblock" style="flex:1.3">
+          <div class="nmb-label">Network Status</div>
+          <div class="net-status-row">
+            <div class="net-dot" style="background:${netColor}"></div>
+            <span class="net-status-text" style="color:${netColor}">${net.label}</span>
           </div>
+          <div class="net-status-detail">${net.detail}</div>
         </div>
-
-        <!-- Network Health -->
-        <div class="section">
-          <div class="section-label">Network Health</div>
-          <div class="network-status">
-            <div class="net-indicator" style="background:${netDotColor};box-shadow:0 0 6px ${netDotColor}"></div>
-            <span class="net-label" style="color:${netDotColor}">${s.networkState === 'healthy' ? 'Operational' : s.networkState === 'degraded' ? 'Degraded' : 'Halted'}</span>
-          </div>
-          <div class="net-detail">${net.label}</div>
-          <div class="net-detail" style="margin-top:2px;color:var(--text-dim)">${net.detail}</div>
+        <div class="net-mblock">
+          <div class="nmb-label">Throughput</div>
+          <div><span class="nbig">${cs.tps.toLocaleString()}</span><span class="nunit">TPS</span></div>
+          <div class="nsub">transactions/sec</div>
         </div>
-
-        <!-- TPS -->
-        <div class="section">
-          <div class="section-label">Throughput</div>
-          <div class="big-stat">
-            <span class="big-num">${s.tps.toLocaleString()}</span>
-            <span class="big-unit">TPS</span>
-          </div>
-          <div style="color:var(--text-dim);font-size:11px;margin-top:3px">Transactions/sec</div>
-        </div>
-
-        <!-- Fee -->
-        <div class="section">
-          <div class="section-label">Current Tx Fee</div>
-          <div class="fee-row">
-            <div class="fee-native">${s.feeNative} <span style="color:var(--text-muted);font-weight:400;font-size:11px">${c.feeRange.native}</span></div>
-            <div class="fee-usd">≈ $${s.feeUSD} USD</div>
-          </div>
-        </div>
-
-        <!-- Centralization -->
-        <div class="section full">
-          <div class="section-label">Validator Centralization</div>
-          <div class="decentral-score">
-            <span class="decentral-label">Nakamoto Coefficient: <strong>${c.nakamoto}</strong></span>
+        ${feeBlock}
+      </div>
+      <div class="val-grid">
+        <div>
+          <div class="val-panel-head">
+            <span class="val-panel-title">Validator Concentration</span>
             <span class="risk-badge ${dc.cls}">${dc.label}</span>
           </div>
-          <div class="validator-bars">${valBars}</div>
+          <div class="val-bars">${valBars}</div>
         </div>
-
-      </div>
-
-      <!-- Footer -->
-      <div class="card-footer">
-        <div class="uptime-bar-wrap">
-          <span>30d uptime</span>
-          <div class="uptime-strip">${segs}</div>
+        <div>
+          <div class="val-panel-head">
+            <span class="val-panel-title">Decentralization</span>
+          </div>
+          <div class="nakamoto-line">Nakamoto Coefficient: <strong style="color:var(--text)">${chain.nakamoto}</strong></div>
+          <div class="nakamoto-line" style="margin-top:6px;color:var(--text-dim)">
+            ${chain.nakamoto} entities required to<br>collude to halt the network
+          </div>
         </div>
-        <span>Sync block #${s.syncBlock}</span>
       </div>
-
     </div>`;
-  }).join('');
+}
+
+// ─── Render: Network Health (Canton) ─────────────────────────────────────────
+function renderCantonNetworkHealth(chain, cs) {
+  const net = NET_STATES[cs.netState];
+  const netColor = cs.netState === 'healthy' ? 'var(--green)' : cs.netState === 'degraded' ? 'var(--yellow)' : 'var(--red)';
+
+  const domainPills = cs.syncDomains.map(d =>
+    `<span class="dpill ${d.status}">${d.name}</span>`
+  ).join('');
+
+  const allDomainsOk = cs.syncDomains.every(d => d.status === 'active');
+
+  return `
+    <div class="net-body">
+      <div class="info-note enterprise">
+        <span class="info-note-icon">ℹ</span>
+        <span>Canton is a permissioned enterprise DLT by Digital Asset. Unlike public L1s, it uses privacy-partitioned sync domains for ordering and does not have a public fee market, native token, or validator set.</span>
+      </div>
+      <div class="net-metrics-row">
+        <div class="net-mblock" style="flex:1.3">
+          <div class="nmb-label">Network Status</div>
+          <div class="net-status-row">
+            <div class="net-dot" style="background:${netColor}"></div>
+            <span class="net-status-text" style="color:${netColor}">${net.label}</span>
+          </div>
+          <div class="net-status-detail">${net.detail}</div>
+        </div>
+        <div class="net-mblock">
+          <div class="nmb-label">Ledger Events/s</div>
+          <div><span class="nbig">${cs.ledgerEvents}</span></div>
+          <div class="nsub">DAML commands processed</div>
+        </div>
+        <div class="net-mblock">
+          <div class="nmb-label">Active Contracts</div>
+          <div><span class="nbig">${cs.activeContracts}</span></div>
+          <div class="nsub">live DAML contracts</div>
+        </div>
+      </div>
+      <div class="spec-grid">
+        <div class="spec-card">
+          <div class="spec-lbl">Active Participants</div>
+          <div class="spec-val normal">${cs.activeParticipants}</div>
+          <div class="spec-sub">network-wide</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-lbl">Sync Domains</div>
+          <div class="spec-val ${allDomainsOk ? 'ok' : 'warn'}">${cs.syncDomains.length}</div>
+          <div class="spec-sub">${allDomainsOk ? 'all active' : 'degraded domain'}</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-lbl">DAML Ledger API</div>
+          <div class="spec-val amber">${chain.damlVersion}</div>
+          <div class="spec-sub">ledger API version</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-lbl">Governance</div>
+          <div class="spec-val normal">Permissioned</div>
+          <div class="spec-sub">no public validators</div>
+        </div>
+      </div>
+      <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-dim);margin-bottom:6px">Sync Domain Status</div>
+      <div class="domain-pills">${domainPills}</div>
+    </div>`;
+}
+
+// ─── Render: Network Health (Base) ────────────────────────────────────────────
+function renderBaseNetworkHealth(chain, cs) {
+  const net = NET_STATES[cs.netState];
+  const netColor = cs.netState === 'healthy' ? 'var(--green)' : cs.netState === 'degraded' ? 'var(--yellow)' : 'var(--red)';
+  const l1LagColor = cs.l1DataLag <= 1 ? 'ok' : cs.l1DataLag <= 3 ? 'warn' : 'error';
+  const bridgeColor = cs.bridgeOk ? 'ok' : 'warn';
+
+  return `
+    <div class="net-body">
+      <div class="info-note l2">
+        <span class="info-note-icon">ℹ</span>
+        <span>Base is an OP Stack Optimistic Rollup L2 on Ethereum. Transactions are batched and posted to Ethereum for data availability. Withdrawals are subject to a ${chain.faultProofWindow} fault proof window. The sequencer is operated by ${chain.sequencer}.</span>
+      </div>
+      <div class="seq-row">
+        <span class="seq-key">Sequencer</span>
+        <span class="seq-val">${chain.sequencer}</span>
+        <span class="seq-warning">Centralized</span>
+        <div style="margin-left:8px;display:flex;align-items:center;gap:5px">
+          <div class="ndot" style="background:${cs.sequencerOk?'var(--green)':'var(--yellow)'}"></div>
+          <span style="font-size:10px;color:${cs.sequencerOk?'var(--green)':'var(--yellow)'}">${cs.sequencerOk?'Active':'Degraded'}</span>
+        </div>
+      </div>
+      <div class="net-metrics-row">
+        <div class="net-mblock" style="flex:1.3">
+          <div class="nmb-label">Network Status</div>
+          <div class="net-status-row">
+            <div class="net-dot" style="background:${netColor}"></div>
+            <span class="net-status-text" style="color:${netColor}">${net.label}</span>
+          </div>
+          <div class="net-status-detail">${net.detail}</div>
+        </div>
+        <div class="net-mblock">
+          <div class="nmb-label">L2 Throughput</div>
+          <div><span class="nbig">${cs.tps}</span><span class="nunit">TPS</span></div>
+          <div class="nsub">L2 transactions/sec</div>
+        </div>
+        <div class="net-mblock">
+          <div class="nmb-label">Tx Fee</div>
+          <div><span class="nbig">${cs.feeNative}</span><span class="nunit">${chain.feeRange.native}</span></div>
+          <div class="nsub">≈ $${cs.feeUSD} USD</div>
+        </div>
+      </div>
+      <div class="spec-grid">
+        <div class="spec-card">
+          <div class="spec-lbl">L1 Data Lag</div>
+          <div class="spec-val ${l1LagColor}">${cs.l1DataLag} blocks</div>
+          <div class="spec-sub">behind ${chain.l1Chain}</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-lbl">Derivation Lag</div>
+          <div class="spec-val ${cs.derivationLag <= 2 ? 'ok' : 'warn'}">${cs.derivationLag} blocks</div>
+          <div class="spec-sub">L2 from L1 origin</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-lbl">L1 Origin Block</div>
+          <div class="spec-val normal">#${cs.l1OriginBlock}</div>
+          <div class="spec-sub">latest derived</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-lbl">Bridge Health</div>
+          <div class="spec-val ${bridgeColor}">${cs.bridgeOk ? 'Operational' : 'Degraded'}</div>
+          <div class="spec-sub">L1 ↔ L2 bridge</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-lbl">Fault Proof Window</div>
+          <div class="spec-val amber">${chain.faultProofWindow}</div>
+          <div class="spec-sub">withdrawal challenge</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-lbl">Settlement Layer</div>
+          <div class="spec-val normal">Ethereum</div>
+          <div class="spec-sub">data availability</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ─── Render: Node Monitoring Table ────────────────────────────────────────────
+function renderNodeMonitoring(chain, cs) {
+  const allNodes = [
+    { config: chain.broadcastNode, ns: cs.nodes[chain.broadcastNode.id], isBroadcast: true },
+    ...chain.readNodes.map(n => ({ config: n, ns: cs.nodes[n.id], isBroadcast: false }))
+  ];
+  const ncols = allNodes.length;
+  const lagLabel = chain.type === 'canton' ? 'Event Lag' : 'Block Lag';
+
+  // Header row
+  const hdrCells = allNodes.map(({ config, isBroadcast }) => `
+    <div class="ncell-hdr ${isBroadcast ? 'is-bcast' : ''}">
+      <div class="nhdr-id">${config.id}</div>
+      <span class="ntype-chip ${isBroadcast ? 'bcast' : 'readonly'}">${config.type}</span>
+    </div>`).join('');
+
+  // Build data rows
+  const rows = [
+    {
+      label: 'Status',
+      cells: allNodes.map(({ ns }) => {
+        const c = ns.status === 'online' ? 'ok' : ns.status === 'degraded' ? 'warn' : 'error';
+        const col = ns.status === 'online' ? 'var(--green)' : ns.status === 'degraded' ? 'var(--yellow)' : 'var(--red)';
+        const lbl = ns.status === 'online' ? 'Online' : ns.status === 'degraded' ? 'Degraded' : 'Offline';
+        return `<div class="status-inline"><div class="ndot" style="background:${col}"></div><span class="${c}">${lbl}</span></div>`;
+      }),
+    },
+    {
+      label: 'Last Update',
+      cells: allNodes.map(({ ns }) => `<span class="normal">${ns.lastUpdate}</span>`),
+    },
+    {
+      label: 'Client',
+      cells: allNodes.map(({ config }) => `<span class="normal" title="${config.client}">${config.client}</span>`),
+    },
+    {
+      label: 'Network',
+      cells: allNodes.map(({ config }) => `<span style="color:var(--text-muted)" title="${config.network}">${config.network}</span>`),
+    },
+    {
+      label: lagLabel,
+      cells: allNodes.map(({ ns }) => {
+        const c = ns.lag <= 2 ? 'ok' : ns.lag <= 10 ? 'warn' : 'error';
+        const display = chain.type === 'canton'
+          ? (ns.lag === 0 ? 'In sync' : `${ns.lag} events`)
+          : `${ns.lag} blocks`;
+        return `<span class="${c}">${display}</span>`;
+      }),
+    },
+    {
+      label: 'Uptime 30d',
+      cells: allNodes.map(({ ns }) => {
+        const pct = parseFloat(ns.uptime);
+        const c = pct >= 99.5 ? 'ok' : pct >= 97 ? 'warn' : 'error';
+        return `<span class="${c}">${ns.uptime}%</span>`;
+      }),
+    },
+    {
+      label: '30d Trend',
+      cells: allNodes.map(({ ns }) => {
+        const segs = ns.uptimeSegs.map(g =>
+          `<div class="useg" style="background:${g==='g'?'var(--green)':g==='y'?'var(--yellow)':'var(--red)'}"></div>`
+        ).join('');
+        return `<div class="uptime-strip">${segs}</div>`;
+      }),
+    },
+  ];
+
+  const rowsHtml = rows.map(({ label, cells }) => `
+    <div class="nrow">
+      <div class="ncell-lbl">${label}</div>
+      ${cells.map((content, i) => `
+        <div class="ncell-val mono ${allNodes[i].isBroadcast ? 'is-bcast' : ''}">${content}</div>
+      `).join('')}
+    </div>`).join('');
+
+  return `
+    <div class="node-body">
+      <div class="node-grid" style="--ncols:${ncols}">
+        <div class="nrow">
+          <div class="ncell-lbl hdr"></div>
+          ${hdrCells}
+        </div>
+        ${rowsHtml}
+      </div>
+    </div>`;
+}
+
+// ─── Render: Full Card ────────────────────────────────────────────────────────
+function renderCard(chain) {
+  const cs = state[chain.id];
+  const bcast = cs.bcastStatus;
+  const cardCls = bcast === 'offline' ? 'alert-red' : bcast === 'degraded' ? 'alert-yellow' : '';
+  const badgeLabel = bcast === 'online' ? 'Broadcast Online' : bcast === 'degraded' ? 'Broadcast Degraded' : 'Broadcast Offline';
+  const typeTagCls = chain.isL2 ? 'l2' : chain.isEnterprise ? 'enterprise' : '';
+  const ticker = chain.ticker ? `<span class="chain-ticker">${chain.ticker}</span>` : '';
+
+  const networkHealthHtml =
+    chain.type === 'canton' ? renderCantonNetworkHealth(chain, cs) :
+    chain.type === 'base'   ? renderBaseNetworkHealth(chain, cs) :
+                              renderL1NetworkHealth(chain, cs);
+
+  const totalNodes = 1 + chain.readNodes.length;
+
+  return `
+    <div class="chain-card ${cardCls}">
+      <div class="card-header">
+        <div class="chain-identity">
+          <div class="chain-icon ${chain.iconClass}">${chain.icon}</div>
+          <div>
+            <div class="chain-name-row">
+              ${chain.name} ${ticker}
+              <span class="type-tag ${typeTagCls}">${chain.typeLabel}</span>
+            </div>
+            <div class="chain-sub">${chain.broadcastNode.id}</div>
+          </div>
+        </div>
+        <div class="bcast-badge ${bcast}">
+          <div class="sdot sdot-${bcast === 'online' ? 'green' : bcast === 'degraded' ? 'yellow' : 'red'}"></div>
+          ${badgeLabel}
+        </div>
+      </div>
+
+      <div class="sec-header">
+        <span class="sec-title">Network Health</span>
+        <span class="sec-meta">${chain.typeLabel}</span>
+      </div>
+      ${networkHealthHtml}
+
+      <div class="sec-header">
+        <span class="sec-title">Institution Node Monitoring</span>
+        <span class="sec-meta">${totalNodes} nodes · 1 broadcast · ${chain.readNodes.length} read-only</span>
+      </div>
+      ${renderNodeMonitoring(chain, cs)}
+    </div>`;
+}
+
+// ─── Render: Grid ─────────────────────────────────────────────────────────────
+function renderGrid() {
+  document.getElementById('grid').innerHTML = CHAINS.map(renderCard).join('');
 }
 
 // ─── Refresh ──────────────────────────────────────────────────────────────────
@@ -687,14 +1058,13 @@ function runCheck() {
     renderSummary();
     renderGrid();
     icon.classList.remove('spin');
-    updateRefreshLabel();
-  }, 600 + Math.random() * 900);
+  }, 500 + Math.random() * 700);
 }
 
 function updateRefreshLabel() {
   const secs = Math.floor((Date.now() - lastRefresh) / 1000);
-  const lbl = secs < 60 ? `Updated ${secs}s ago` : `Updated ${Math.floor(secs/60)}m ago`;
-  document.getElementById('refreshLabel').textContent = lbl;
+  document.getElementById('refreshLabel').textContent =
+    secs < 60 ? `Updated ${secs}s ago` : `Updated ${Math.floor(secs/60)}m ago`;
 }
 
 setInterval(runCheck, 60_000);
